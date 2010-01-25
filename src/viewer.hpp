@@ -53,7 +53,20 @@ private:
 
   // *** Fill me in ***
   // You will want to declare some more matrices here
-  Matrix4x4 m_projection;
+  Matrix4x4 m_proj;
+  Matrix4x4 m_rotation;
+  Matrix4x4 m_ortho;
+  Matrix4x4 m_scale;
+  Matrix4x4 m_trans;
+  Point3D *pointsOfCube;
+  Point3D *tempPoints;
+  
+  double angle;
+  double n, f;
+  
+  void print (Matrix4x4 mat);
+  void print (Point3D pt);
+  void print (Vector3D vec);
 };
 
 #endif
