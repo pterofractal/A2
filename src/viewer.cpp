@@ -119,6 +119,31 @@ void Viewer::set_perspective(double fov, double aspect,
                              double near, double far)
 {
   // Fill me in!
+	m_proj[0][0] = 1/(tan(fov / 2));
+	m_proj[0][0] /= aspect;
+	
+	for (int i = 1;i<4;i++)
+	{
+		m_proj[0][i] = 0;
+		m_proj[i][0] = 0;
+	}
+	
+	m_proj[1][1] = 1/(tan(fov/2));
+	//m_proj[2][2] = (near + far ) / near;
+	//m_proj[2][3] = -1 * far;
+	//m_proj[3][2] = 1 / near;
+	m_proj[2][2] = (far + near) / (far - near);
+	m_proj[2][3] = (-2 * far * near)/(far-near);
+	m_proj[3][2] = 1;
+	m_proj[3][3] = 0;
+	for (int i = 2; i < 4; i++)
+	{
+		m_proj[1][i] = 0;
+		m_proj[i][1] = 0;
+	}
+	std::cout << "Proj\n";
+	print(m_proj);
+
 }
 
 void Viewer::reset_view()
@@ -159,54 +184,36 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
-  // Here is where your drawing code should go.
+	
+	double width, height;
+	width = get_width();
+	height = get_height();
+	// Here is where your drawing code should go.
 	draw_init(get_width(), get_height());
 	
 	// init translate
-	m_trans[0][3] = get_width() / 4;
-	m_trans[1][3] = get_height() / 4 ;
+	m_trans[0][3] = -1 * (1/tan(angle/2)) / aspectRatio;
+	m_trans[1][3] = -1 * (1/tan(angle/2));
 	m_trans[2][3] = 1;
 	// Init scale
-	for (int i = 0;i<4;i++)
-	{
-		m_scale[i][i] = get_width() / 2;
-	}
+	m_scale[0][0] = 0.5 * width * width / (height * 1/(tan(angle/2)));
+	m_scale[1][1] = height / (2 * (1/tan(angle/2)));
+	m_scale[2][2] = 1;
 	m_scale[3][3] = 1;
 	
 	// Init projection matrix
-	m_proj[0][0] = 1/(tan(angle / 2));
-	m_proj[0][0] /= aspectRatio;
-	
-	for (int i = 1;i<4;i++)
-	{
-		m_proj[0][i] = 0;
-		m_proj[i][0] = 0;
-	}
-	
-	m_proj[1][1] = 1/(tan(angle/2));
-	m_proj[2][2] = (f + n) / (f - n);
-	m_proj[2][3] = (-2 * f * n)/(f-n);
-	m_proj[3][2] = 1;
-	m_proj[3][3] = 0;
-	for (int i = 2; i < 4; i++)
-	{
-		m_proj[1][i] = 0;
-		m_proj[i][1] = 0;
-	}
-	std::cout << "Proj\n";
-	print(m_proj);
+	set_perspective(angle, aspectRatio, n, f);	
 	
 	for (int i = 0;i<8;i++)
 		tempPoints[i] = m_proj * tempPoints[i];
-	/* A few of lines are drawn below to show how it's done. */
+	
 	for (int i = 0;i<8;i++)
 	{
 		tempPoints[i][0] /= tempPoints[i][2];
 		tempPoints[i][1] /= tempPoints[i][2];
 		tempPoints[i][2] /= tempPoints[i][2];
 	}
-	
-	
+
 	for (int i = 0;i<8;i++)
 		tempPoints[i] = m_scale * tempPoints[i];
 		
@@ -214,7 +221,6 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	for (int i = 0;i<8;i++)
 		tempPoints[i] = m_trans * tempPoints[i];
 		
-	
 	for (int i = 0;i<8;i++)
 	{
 		std::cout << "Point " << i << ": ";
