@@ -18,6 +18,8 @@ private:
   Gtk::MenuBar m_menubar;
   // Each menu itself
   Gtk::Menu m_menu_app;
+Gtk::Menu m_mode;
+Gtk::RadioButtonGroup m_mode_group;
 
   // The main OpenGL area
   Viewer m_viewer;

@@ -8,6 +8,15 @@
 // The "main" OpenGL widget
 class Viewer : public Gtk::GL::DrawingArea {
 public:
+		enum Mode {
+			VIEW_ROTATE,
+			VIEW_TRANSLATE,
+			VIEW_PERSPECTIVE,
+			MODEL_ROTATE,
+			MODEL_TRANSLATE,
+			MODEL_SCALE,
+			VIEWPORT
+	};
   Viewer();
   virtual ~Viewer();
 
@@ -27,6 +36,8 @@ public:
   // Restore all the transforms and perspective parameters to their
   // original state. Set the viewport to its initial size.
   void reset_view();
+
+void set_mode(Mode newMode);
 
 protected:
 
@@ -53,16 +64,21 @@ private:
 
   // *** Fill me in ***
   // You will want to declare some more matrices here
-  Matrix4x4 m_proj;
-  Matrix4x4 m_rotation;
-  Matrix4x4 m_ortho;
-  Matrix4x4 m_scale;
-  Matrix4x4 m_trans;
+	Matrix4x4 m_proj;
+	Matrix4x4 m_rotation;
+	Matrix4x4 m_ortho;
+	Matrix4x4 m_M, m_T, m_V;
+	
+	Vector3D lookAt, up; 
+	Vector3D lookFrom;
+	
   Point3D *pointsOfCube;
   Point3D *tempPoints;
   
   double angle;
   double n, f;
+
+Mode currMode;
   
   void print (Matrix4x4 mat);
   void print (Point3D pt);

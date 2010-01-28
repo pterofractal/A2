@@ -88,19 +88,62 @@ Viewer::Viewer()
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
-	n = 1;
-	f = 10;
-	angle = 30;
+	n = 6;
+	f = 141;
+	angle = 107;
 	
+	// Initialize Modelling Matrix
 	for (int i = 0;i<4;i++)
 	{
 		for (int j = 0;j<4;j++)
 		{
-			m_trans[i][j]=0;
 			if (i == j)
-				m_trans[i][j]=1;
+				m_M[i][j] = 1;
+			else
+				m_M[i][j] = 0;
 		}
 	}
+	
+	// Initialize Modelling Transformation
+	for (int i = 0;i<4;i++)
+	{
+		for (int j = 0;j<4;j++)
+		{
+			m_T[i][j] = 0;
+		}
+	}
+	
+	lookFrom[0] = 0;
+	lookFrom[1] = 0;
+	lookFrom[2] = 0;
+		
+	up[0] = 0;
+	up[1] = 1;
+	up[2] = 0;
+	
+	lookAt[0] = 0;
+	lookAt[1] = 0;
+	lookAt[2] = 1;
+
+	Vector3D vX, vY, vZ;
+	vZ = lookAt - lookFrom;
+	vZ.normalize();
+	
+	vX = up.cross(vZ);
+	vX.normalize();
+	
+	vY = vZ.cross(vX);
+	vY.normalize();
+	
+	for (int i = 0;i<3;i++)
+	{
+		m_V[i][0] = vX[i];
+		m_V[i][1] = vY[i];
+		m_V[i][2] = vZ[i];
+		m_V[i][3] = lookFrom[i];
+		m_V[3][i] = 0;
+	}
+
 }
 
 Viewer::~Viewer()
@@ -119,6 +162,7 @@ void Viewer::set_perspective(double fov, double aspect,
                              double near, double far)
 {
   // Fill me in!
+	std::cout << "FOV: " << fov << ",\tnear: " << near << ",\tfar: " << far << std::endl; 
 	m_proj[0][0] = 1/(tan(fov / 2));
 	m_proj[0][0] /= aspect;
 	
@@ -141,9 +185,6 @@ void Viewer::set_perspective(double fov, double aspect,
 		m_proj[1][i] = 0;
 		m_proj[i][1] = 0;
 	}
-	std::cout << "Proj\n";
-	print(m_proj);
-
 }
 
 void Viewer::reset_view()
@@ -191,52 +232,50 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	// Here is where your drawing code should go.
 	draw_init(get_width(), get_height());
 	
-	// init translate
-	m_trans[0][3] = -1 * (1/tan(angle/2)) / aspectRatio;
-	m_trans[1][3] = -1 * (1/tan(angle/2));
-	m_trans[2][3] = 1;
-	// Init scale
-	m_scale[0][0] = 0.5 * width * width / (height * 1/(tan(angle/2)));
-	m_scale[1][1] = height / (2 * (1/tan(angle/2)));
-	m_scale[2][2] = 1;
-	m_scale[3][3] = 1;
-	
 	// Init projection matrix
 	set_perspective(angle, aspectRatio, n, f);	
+	m_T[0][0] = get_width() / 10;
+	m_T[1][1] = get_height() / 10;
+	m_T[2][2] = 1;//get_width()/4;
+	m_T[3][3] = 1;
+	m_T[0][3] = -1 * get_width() / 2;
+	m_T[1][3] = -1 * get_height() / 2;
+	m_T[2][3] = 1;
+	
+	std::cout << "Transform Matrix " << std::endl;
+	print(m_T);
+	
+	std::cout << "Modelling Matrix " << std::endl;
+	print(m_M);
+	
+	std::cout << "Viewing Matrix " << std::endl;
+	print(m_V);
+	
+	std::cout << "Projection Matrix " << std::endl;
+	print(m_proj);
 	
 	for (int i = 0;i<8;i++)
-		tempPoints[i] = m_proj * tempPoints[i];
-	
+	{	
+		tempPoints[i] = m_T * tempPoints[i];
+		tempPoints[i] = m_M * tempPoints[i];
+		tempPoints[i] = m_V * tempPoints[i];
+		tempPoints[i] = m_proj * tempPoints[i];		
+	}
+		
 	for (int i = 0;i<8;i++)
 	{
 		tempPoints[i][0] /= tempPoints[i][2];
 		tempPoints[i][1] /= tempPoints[i][2];
 		tempPoints[i][2] /= tempPoints[i][2];
 	}
-
-	for (int i = 0;i<8;i++)
-		tempPoints[i] = m_scale * tempPoints[i];
-		
 	
-	for (int i = 0;i<8;i++)
-		tempPoints[i] = m_trans * tempPoints[i];
-		
 	for (int i = 0;i<8;i++)
 	{
 		std::cout << "Point " << i << ": ";
 		print(tempPoints[i]);
 	}
 	set_colour(Colour(0.1, 0.1, 0.1));
-	/*
-	draw_line(Point2D(temp[0], temp[1]), 
-			Point2D(temp2[0], temp2[1]));
-	draw_line(Point2D(0.9*get_width(), 0.1*get_height()),
-			Point2D(0.1*get_width(), 0.9*get_height()));
-	
-	draw_line(Point2D(0.1*get_width(), 0.1*get_height()),
-			Point2D(0.2*get_width(), 0.1*get_height()));
-	draw_line(Point2D(0.1*get_width(), 0.1*get_height()), 
-	*/
+
 	/*
 	0	1	1	1
 	1	-1	1	1
@@ -247,6 +286,7 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	6	1	-1	-1
 	7	-1	-1	-1
 	*/
+
 	draw_line(	Point2D(tempPoints[0][0], tempPoints[0][1]),
 				Point2D(tempPoints[1][0], tempPoints[1][1]));
 	
@@ -331,5 +371,17 @@ bool Viewer::on_button_release_event(GdkEventButton* event)
 bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 {
   std::cerr << "Stub: Motion at " << event->x << ", " << event->y << std::endl;
+
+	switch(currMode)
+	{
+		case VIEW_ROTATE:
+			sw
+			break;
+	}
   return true;
+}
+
+void Viewer::set_mode(Mode newMode)
+{
+	currMode = newMode;
 }
