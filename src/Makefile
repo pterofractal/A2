@@ -16,11 +16,11 @@ clean:
 
 $(MAIN): $(OBJECTS)
 	@echo Creating $@...
-	@$(CXX) -o $@ $(OBJECTS) $(LDFLAGS)
+	@$(CXX) -arch i386 -o $@ $(OBJECTS) $(LDFLAGS)
 
 %.o: %.cpp
 	@echo Compiling $<...
-	@$(CXX) -o $@ -c $(CXXFLAGS) $<
+	@$(CXX) -arch i386 -o $@ -c $(CXXFLAGS) $<
 
 %.d: %.cpp
 	@echo Building $@...

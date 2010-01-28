@@ -72,6 +72,10 @@ private:
 	Vector3D lookAt, up; 
 	Vector3D lookFrom;
 	
+	// Mouse button flags
+	bool mb1, mb2, mb3;
+	
+	Point2D startPos;
   Point3D *pointsOfCube;
   Point3D *tempPoints;
   

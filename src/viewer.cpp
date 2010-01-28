@@ -89,8 +89,8 @@ Viewer::Viewer()
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
 	n = 6;
-	f = 141;
-	angle = 107;
+	f = 16;
+	angle = 31.6;
 	
 	// Initialize Modelling Matrix
 	for (int i = 0;i<4;i++)
@@ -242,7 +242,7 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	m_T[1][3] = -1 * get_height() / 2;
 	m_T[2][3] = 1;
 	
-	std::cout << "Transform Matrix " << std::endl;
+/*	std::cout << "Transform Matrix " << std::endl;
 	print(m_T);
 	
 	std::cout << "Modelling Matrix " << std::endl;
@@ -252,7 +252,7 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	print(m_V);
 	
 	std::cout << "Projection Matrix " << std::endl;
-	print(m_proj);
+	print(m_proj);*/
 	
 	for (int i = 0;i<8;i++)
 	{	
@@ -272,7 +272,7 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	for (int i = 0;i<8;i++)
 	{
 		std::cout << "Point " << i << ": ";
-		print(tempPoints[i]);
+		//print(tempPoints[i]);
 	}
 	set_colour(Colour(0.1, 0.1, 0.1));
 
@@ -344,8 +344,17 @@ bool Viewer::on_configure_event(GdkEventConfigure* event)
 
 bool Viewer::on_button_press_event(GdkEventButton* event)
 {
-  std::cerr << "Stub: Button " << event->button << " pressed" << std::endl;
-  	if (event->state & GDK_SHIFT_MASK)
+	std::cerr << "Stub: Button " << event->button << " pressed" << std::endl;
+	startPos[0] = event->x;
+	startPos[1] = event->y;
+	if (event->button == 1)
+		mb1 = true;
+	else if (event->button == 2)
+		mb2 = true;
+	else if (event->button == 3)
+		mb3 = true;
+	
+  	/*if (event->state & GDK_SHIFT_MASK)
   	{
   		f++;
   	}
@@ -356,7 +365,7 @@ bool Viewer::on_button_press_event(GdkEventButton* event)
   	else
   	{
   		angle++;
-  	}
+  	}*/
   	invalidate();
   	
   return true;
@@ -364,21 +373,144 @@ bool Viewer::on_button_press_event(GdkEventButton* event)
 
 bool Viewer::on_button_release_event(GdkEventButton* event)
 {
+	if (event->button == 1)
+		mb1 = false;
+	else if (event->button == 2)
+		mb2 = false;
+	else if (event->button == 3)
+		mb3 = false;
   std::cerr << "Stub: Button " << event->button << " released" << std::endl;
   return true;
 }
 
 bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 {
-  std::cerr << "Stub: Motion at " << event->x << ", " << event->y << std::endl;
-
-	switch(currMode)
+	std::cerr << "Stub: Motion at " << event->x << ", " << event->y << " mode " << currMode << std::endl;
+  	double x2x1 = event->x - startPos[0];
+	x2x1 /= 10;
+	Matrix4x4 temp;
+	for (int i = 0;i<4;i++)
 	{
-		case VIEW_ROTATE:
-			sw
-			break;
+		for (int j=0;j<4;j++)
+		{
+			if (i == j)
+				temp[i][j] = 1;
+			else
+				temp[i][j] = 0;
+		}
 	}
-  return true;
+	if (currMode == MODEL_TRANSLATE)
+	{
+		if (mb1)
+			temp[0][3] -= x2x1;
+		else if (mb2)
+			temp[1][3] -= x2x1;
+		else if (mb3)
+			temp[2][3] -= x2x1;
+	}
+	else if (currMode == MODEL_SCALE)
+	{
+		if (mb1)
+			temp[0][0] *= x2x1;
+		else if (mb2)
+			temp[1][1] *= x2x1;
+		else if (mb3)
+			temp[2][2] *= x2x1;
+	}
+	else if (currMode == MODEL_ROTATE)
+	{
+		if (mb1)
+		{
+			Vector3D b(m_M[0][0], 0, m_M[2][0]);
+			Vector3D xAxis(m_M[0][0], m_M[1][0], m_M[2][0]);
+			//double phi = (b.dot(xAxis)) / (b.length() * xAxis.length());
+			double cosPhi = (m_M[0][0]) / b.length();
+			double sinPhi = (m_M[2][0]) / b.length();
+			Matrix4x4 RyNegPhi;
+			for (int i = 0;i<4;i++)
+			{
+				for (int j = 0;j<4;j++)
+				{
+					RyNegPhi[i][j] = 0;
+				}
+			}
+			RyNegPhi[0][0] = cosPhi;
+			RyNegPhi[0][2] = -1 * sinPhi;
+			RyNegPhi[1][1] = 1;
+			RyNegPhi[2][0] = sinPhi;
+			RyNegPhi[2][2] = cosPhi;
+			RyNegPhi[3][3] = 1;
+			
+			//Vector3D c = RyNegPhi * xAxis;
+			Vector3D c(b.length(), xAxis[1], 0);
+			
+			double cosPsi = b.length();
+			double sinPsi = xAxis[1];
+			
+			Matrix4x4 RzNegPsi;
+			for (int i = 0;i<4;i++)
+			{
+				for (int j = 0;j<4;j++)
+				{
+					RzNegPsi[i][j] = 0;
+				}
+			}
+			RzNegPsi[0][0] = cosPsi;
+			RzNegPsi[0][1] = -1 * sinPsi;
+			RzNegPsi[1][0] = sinPsi;
+			RzNegPsi[1][1] = cosPsi;
+			RzNegPsi[2][2] = 1;
+			RzNegPsi[3][3] = 1;
+			
+			Matrix4x4 RxTheta;
+			x2x1 *= 10;
+			double anglePieces = get_width() / 360;
+			x2x1 /= anglePieces;
+			std::cout << "angle" << x2x1 << "\twidth" << get_width() << std::endl;
+			double cosTheta = cos(x2x1);
+			double sinTheta = sin(x2x1);
+			for (int i = 0;i<4;i++)
+			{
+				for (int j = 0;j<4;j++)
+				{
+					RzNegPsi[i][j] = 0;
+				}
+			}
+			RxTheta[0][0] = 1;
+			RxTheta[1][1] = cosTheta;
+			RxTheta[1][2] = -1 * sinTheta;
+			RxTheta[2][1] = sinTheta;
+			RxTheta[2][2] = cosTheta;
+			RxTheta[3][3] = 1;
+			
+			Matrix4x4 RzPsi, RyPhi;
+			RyPhi = RyNegPhi;
+			RzPsi = RzPsi;
+			
+			RyPhi[2][0] *= -1;
+			RyPhi[0][2] *= -1;
+			
+			RzPsi[0][1] *= -1;
+			RzPsi[1][0] *= -1;
+			
+			
+			print (RyNegPhi);
+			print (RzNegPsi);
+			print (RxTheta);
+			Matrix4x4 tempRot = RyPhi * RzPsi * RxTheta * RzNegPsi * RyNegPhi;
+			std::cout << "Temp rotation: " << std::endl;
+			print(tempRot);
+			
+		}
+	}
+	m_M = m_M * temp;
+	x2x1 /= 10;
+	
+	// Store the position of the cursor
+	startPos[0] = event->x;
+	startPos[1] = event->y;
+	invalidate();
+	return true;
 }
 
 void Viewer::set_mode(Mode newMode)
