@@ -335,7 +335,6 @@ bool Viewer::on_configure_event(GdkEventConfigure* event)
 
 bool Viewer::on_button_press_event(GdkEventButton* event)
 {
-	//std::cerr << "Stub: Button " << event->button << " pressed" << std::endl;
 	startPos[0] = event->x;
 	startPos[1] = event->y;
 	if (event->button == 1)
@@ -344,22 +343,11 @@ bool Viewer::on_button_press_event(GdkEventButton* event)
 		mb2 = true;
 	else if (event->button == 3)
 		mb3 = true;
-	
-  	/*if (event->state & GDK_SHIFT_MASK)
-  	{
-  		f++;
-  	}
-  	else if (event->state & GDK_CONTROL_MASK)
-  	{
-  		n++;
-  	}
-  	else
-  	{
-  		angle++;
-  	}*/
-  	invalidate();
+
+
+	invalidate();
   	
-  return true;
+	return true;
 }
 
 bool Viewer::on_button_release_event(GdkEventButton* event)
@@ -370,17 +358,20 @@ bool Viewer::on_button_release_event(GdkEventButton* event)
 		mb2 = false;
 	else if (event->button == 3)
 		mb3 = false;
-  //std::cerr << "Stub: Button " << event->button << " released" << std::endl;
-  return true;
+  	
+	return true;
 }
 
 bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 {
-	//std::cerr << "Stub: Motion at " << event->x << ", " << event->y << " mode " << currMode << std::endl;
-  	double x2x1 = event->x - startPos[0];
+	// Change in x
+	double x2x1 = event->x - startPos[0];
+	
+	// Scale it down a bit
 	x2x1 /= 10;
+	
+	// Temp matrix used to store different kinds of transformations
 	Matrix4x4 temp;
-	std::cerr << "Change in x is " << x2x1 << std::endl;
 	for (int i = 0;i<4;i++)
 	{
 		for (int j=0;j<4;j++)
@@ -391,6 +382,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 				temp[i][j] = 0;
 		}
 	}
+	
 	if (currMode == MODEL_TRANSLATE)
 	{
 		if (mb1)
@@ -410,7 +402,6 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 		else if (x2x1 < 0)
 			x2x1 = -1.0 / x2x1;
 		
-		std::cerr << "Change in x2x1 after modification:\t" << x2x1 << std::endl;
 		if (mb1)
 			temp[0][0] *= x2x1;
 		else if (mb2)
@@ -453,10 +444,8 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 		else if (mb3)
 			lookFrom[2] -= x2x1;
 			
-		//lookFrom.normalize();
+		// Update the viewing matrix
 		set_view();
-		std::cout << "Viewing Matrix: " << std::endl;
-		print (m_V);
 	}
 	else if (currMode == VIEW_ROTATE)
 	{
@@ -483,11 +472,8 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			temp[2][2] = cos(x2x1);
 			temp[0][2] = sin(x2x1);
 		}
-		//lookAt = temp * lookAt;
-		//lookAt.normalize();
 		
-		//temp = temp.invert();
-		//temp = temp.transpose();
+		// Update the up vector
 		up = temp * up;
 		
 		up.normalize();
@@ -512,7 +498,12 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			n += x2x1;
 		else if (mb3)
 			f += x2x1;
-			
+		
+		if (angle < 5)
+			angle = 5;
+		else if (angle > 160)
+			angle = 160;
+		
 		update_labels();
 	}
 	m_M = m_M * temp;
