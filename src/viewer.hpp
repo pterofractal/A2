@@ -33,11 +33,18 @@ public:
   void set_perspective(double fov, double aspect,
                        double near, double far);
 
+
+
   // Restore all the transforms and perspective parameters to their
   // original state. Set the viewport to its initial size.
   void reset_view();
+	
+	
+	void set_mode(Mode newMode);
 
-void set_mode(Mode newMode);
+	void set_labels(Gtk::Label *currentModel, Gtk::Label *nearFar);
+	void update_labels();
+	void set_view();
 
 protected:
 
@@ -76,9 +83,11 @@ private:
 	bool mb1, mb2, mb3;
 	
 	Point2D startPos;
-  Point3D *pointsOfCube;
-  Point3D *tempPoints;
-  
+	Point3D *pointsOfCube;
+	Point3D *tempPoints;
+  	
+	Gtk::Label *nearFarLabel;
+	Gtk::Label *currentModeLabel;
   double angle;
   double n, f;
 

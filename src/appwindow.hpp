@@ -21,6 +21,10 @@ private:
 Gtk::Menu m_mode;
 Gtk::RadioButtonGroup m_mode_group;
 
+
+// Label widgets
+Gtk::Label currentModeLabel, nearFarLabel;
+
   // The main OpenGL area
   Viewer m_viewer;
 };

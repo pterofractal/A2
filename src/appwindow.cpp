@@ -31,13 +31,22 @@ AppWindow::AppWindow()
   m_menubar.items().push_back(Gtk::Menu_Helpers::MenuElem("_Application", m_menu_app));
   m_menubar.items().push_back(Gtk::Menu_Helpers::MenuElem("_Mode", m_mode));
  
-  // Pack in our widgets
+  
+	// Set up the score label	
+	currentModeLabel.set_text("Current Mode:\t Rotate View");
+	nearFarLabel.set_text("Near Plane:\t0\tFar Plane:\t0");
+	
+	m_viewer.set_labels(&currentModeLabel, &nearFarLabel);
+	
+	// Pack in our widgets
   
   // First add the vertical box as our single "top" widget
   add(m_vbox);
 
   // Put the menubar on the top, and make it as small as possible
-  m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
+	m_vbox.pack_start(m_menubar, Gtk::PACK_SHRINK);
+	m_vbox.pack_start(currentModeLabel, Gtk::PACK_EXPAND_PADDING);
+	m_vbox.pack_start(nearFarLabel, Gtk::PACK_EXPAND_PADDING);
 
   // Put the viewer below the menubar. pack_start "grows" the widget
   // by default, so it'll take up the rest of the window.

@@ -1,10 +1,14 @@
 #include "viewer.hpp"
 #include <iostream>
+#include <sstream>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include "draw.hpp"
 #include <math.h>
 
+#define DEFAULT_NEAR 6
+#define DEFAULT_FAR 16
+#define DEFAULT_FOV 31.6
 void Viewer::print (Matrix4x4 mat)
 {
 	for (int i = 0;i<4;i++)
@@ -26,7 +30,7 @@ void Viewer::print (Point3D pt)
 }
 void Viewer::print (Vector3D vec)
 {
-	for (int j = 0;j<4;j++)
+	for (int j = 0;j<3;j++)
 	{	
 		std::cout<< vec[j] << "\t";
 	}
@@ -88,9 +92,9 @@ Viewer::Viewer()
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
-	n = 6;
-	f = 16;
-	angle = 31.6;
+	n = DEFAULT_NEAR;
+	f = DEFAULT_FAR;
+	angle = DEFAULT_FOV;
 	
 	// Initialize Modelling Matrix
 	for (int i = 0;i<4;i++)
@@ -124,26 +128,6 @@ Viewer::Viewer()
 	lookAt[0] = 0;
 	lookAt[1] = 0;
 	lookAt[2] = 1;
-
-	Vector3D vX, vY, vZ;
-	vZ = lookAt - lookFrom;
-	vZ.normalize();
-	
-	vX = up.cross(vZ);
-	vX.normalize();
-	
-	vY = vZ.cross(vX);
-	vY.normalize();
-	
-	for (int i = 0;i<3;i++)
-	{
-		m_V[i][0] = vX[i];
-		m_V[i][1] = vY[i];
-		m_V[i][2] = vZ[i];
-		m_V[i][3] = lookFrom[i];
-		m_V[3][i] = 0;
-	}
-
 }
 
 Viewer::~Viewer()
@@ -162,7 +146,7 @@ void Viewer::set_perspective(double fov, double aspect,
                              double near, double far)
 {
   // Fill me in!
-	std::cout << "FOV: " << fov << ",\tnear: " << near << ",\tfar: " << far << std::endl; 
+	//std::cout << "FOV: " << fov << ",\tnear: " << near << ",\tfar: " << far << std::endl; 
 	m_proj[0][0] = 1/(tan(fov / 2));
 	m_proj[0][0] /= aspect;
 	
@@ -238,8 +222,8 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	m_T[1][1] = get_height() / 10;
 	m_T[2][2] = 1;//get_width()/4;
 	m_T[3][3] = 1;
-	m_T[0][3] = -1 * get_width() / 2;
-	m_T[1][3] = -1 * get_height() / 2;
+	m_T[0][3] = get_width() / 2;
+	m_T[1][3] = get_height() / 2;
 	m_T[2][3] = 1;
 	
 /*	std::cout << "Transform Matrix " << std::endl;
@@ -256,7 +240,6 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	
 	for (int i = 0;i<8;i++)
 	{	
-		tempPoints[i] = m_T * tempPoints[i];
 		tempPoints[i] = m_M * tempPoints[i];
 		tempPoints[i] = m_V * tempPoints[i];
 		tempPoints[i] = m_proj * tempPoints[i];		
@@ -267,13 +250,17 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 		tempPoints[i][0] /= tempPoints[i][2];
 		tempPoints[i][1] /= tempPoints[i][2];
 		tempPoints[i][2] /= tempPoints[i][2];
+		tempPoints[i][0] *= n;
+		tempPoints[i][1] *= n;
+		tempPoints[i][2] *= n;
+		tempPoints[i] = m_T * tempPoints[i];
 	}
 	
-	for (int i = 0;i<8;i++)
-	{
-		std::cout << "Point " << i << ": ";
-		//print(tempPoints[i]);
-	}
+	// for (int i = 0;i<8;i++)
+	// 	{
+	// 		std::cout << "Point " << i << ": ";
+	// 		print(tempPoints[i]);
+	// 	}
 	set_colour(Colour(0.1, 0.1, 0.1));
 
 	/*
@@ -299,6 +286,8 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	draw_line(	Point2D(tempPoints[2][0], tempPoints[2][1]),
 				Point2D(tempPoints[3][0], tempPoints[3][1]));
 	
+	set_colour(Colour(1, 0, 0));
+
 	draw_line(	Point2D(tempPoints[4][0], tempPoints[4][1]),
 				Point2D(tempPoints[5][0], tempPoints[5][1]));
 	
@@ -310,6 +299,8 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	
 	draw_line(	Point2D(tempPoints[6][0], tempPoints[6][1]),
 				Point2D(tempPoints[7][0], tempPoints[7][1]));
+	
+	set_colour(Colour(0.1, 0.1, 1));
 	
 	for (int i = 0; i < 4;i++)
 	{
@@ -344,7 +335,7 @@ bool Viewer::on_configure_event(GdkEventConfigure* event)
 
 bool Viewer::on_button_press_event(GdkEventButton* event)
 {
-	std::cerr << "Stub: Button " << event->button << " pressed" << std::endl;
+	//std::cerr << "Stub: Button " << event->button << " pressed" << std::endl;
 	startPos[0] = event->x;
 	startPos[1] = event->y;
 	if (event->button == 1)
@@ -379,16 +370,17 @@ bool Viewer::on_button_release_event(GdkEventButton* event)
 		mb2 = false;
 	else if (event->button == 3)
 		mb3 = false;
-  std::cerr << "Stub: Button " << event->button << " released" << std::endl;
+  //std::cerr << "Stub: Button " << event->button << " released" << std::endl;
   return true;
 }
 
 bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 {
-	std::cerr << "Stub: Motion at " << event->x << ", " << event->y << " mode " << currMode << std::endl;
+	//std::cerr << "Stub: Motion at " << event->x << ", " << event->y << " mode " << currMode << std::endl;
   	double x2x1 = event->x - startPos[0];
 	x2x1 /= 10;
 	Matrix4x4 temp;
+	std::cerr << "Change in x is " << x2x1 << std::endl;
 	for (int i = 0;i<4;i++)
 	{
 		for (int j=0;j<4;j++)
@@ -410,6 +402,15 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	}
 	else if (currMode == MODEL_SCALE)
 	{
+		x2x1 *= 10;
+		if (x2x1 >= 0 && x2x1 < 1)
+			x2x1 = 1.1;
+		else if (x2x1 <= 0 && x2x1 > -1)
+			x2x1 = 0.5;
+		else if (x2x1 < 0)
+			x2x1 = -1.0 / x2x1;
+		
+		std::cerr << "Change in x2x1 after modification:\t" << x2x1 << std::endl;
 		if (mb1)
 			temp[0][0] *= x2x1;
 		else if (mb2)
@@ -419,91 +420,105 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	}
 	else if (currMode == MODEL_ROTATE)
 	{
+		double anglePieces = get_width() / (2.0 * M_PI);
+		x2x1 /= anglePieces;
 		if (mb1)
 		{
-			Vector3D b(m_M[0][0], 0, m_M[2][0]);
-			Vector3D xAxis(m_M[0][0], m_M[1][0], m_M[2][0]);
-			//double phi = (b.dot(xAxis)) / (b.length() * xAxis.length());
-			double cosPhi = (m_M[0][0]) / b.length();
-			double sinPhi = (m_M[2][0]) / b.length();
-			Matrix4x4 RyNegPhi;
-			for (int i = 0;i<4;i++)
-			{
-				for (int j = 0;j<4;j++)
-				{
-					RyNegPhi[i][j] = 0;
-				}
-			}
-			RyNegPhi[0][0] = cosPhi;
-			RyNegPhi[0][2] = -1 * sinPhi;
-			RyNegPhi[1][1] = 1;
-			RyNegPhi[2][0] = sinPhi;
-			RyNegPhi[2][2] = cosPhi;
-			RyNegPhi[3][3] = 1;
-			
-			//Vector3D c = RyNegPhi * xAxis;
-			Vector3D c(b.length(), xAxis[1], 0);
-			
-			double cosPsi = b.length();
-			double sinPsi = xAxis[1];
-			
-			Matrix4x4 RzNegPsi;
-			for (int i = 0;i<4;i++)
-			{
-				for (int j = 0;j<4;j++)
-				{
-					RzNegPsi[i][j] = 0;
-				}
-			}
-			RzNegPsi[0][0] = cosPsi;
-			RzNegPsi[0][1] = -1 * sinPsi;
-			RzNegPsi[1][0] = sinPsi;
-			RzNegPsi[1][1] = cosPsi;
-			RzNegPsi[2][2] = 1;
-			RzNegPsi[3][3] = 1;
-			
-			Matrix4x4 RxTheta;
-			x2x1 *= 10;
-			double anglePieces = get_width() / 360;
-			x2x1 /= anglePieces;
-			std::cout << "angle" << x2x1 << "\twidth" << get_width() << std::endl;
-			double cosTheta = cos(x2x1);
-			double sinTheta = sin(x2x1);
-			for (int i = 0;i<4;i++)
-			{
-				for (int j = 0;j<4;j++)
-				{
-					RzNegPsi[i][j] = 0;
-				}
-			}
-			RxTheta[0][0] = 1;
-			RxTheta[1][1] = cosTheta;
-			RxTheta[1][2] = -1 * sinTheta;
-			RxTheta[2][1] = sinTheta;
-			RxTheta[2][2] = cosTheta;
-			RxTheta[3][3] = 1;
-			
-			Matrix4x4 RzPsi, RyPhi;
-			RyPhi = RyNegPhi;
-			RzPsi = RzPsi;
-			
-			RyPhi[2][0] *= -1;
-			RyPhi[0][2] *= -1;
-			
-			RzPsi[0][1] *= -1;
-			RzPsi[1][0] *= -1;
-			
-			
-			print (RyNegPhi);
-			print (RzNegPsi);
-			print (RxTheta);
-			Matrix4x4 tempRot = RyPhi * RzPsi * RxTheta * RzNegPsi * RyNegPhi;
-			std::cout << "Temp rotation: " << std::endl;
-			print(tempRot);
-			
+			temp[1][2] = -1 * sin(x2x1);
+			temp[1][1] = cos(x2x1);
+			temp[2][2] = cos(x2x1);
+			temp[2][1] = sin(x2x1);
+		}
+		else if (mb2)
+		{
+			temp[0][1] = -1 * sin(x2x1);
+			temp[0][0] = cos(x2x1);
+			temp[1][1] = cos(x2x1);
+			temp[1][0] = sin(x2x1);
+		}
+		else if (mb3)
+		{
+			temp[2][0] = -1 * sin(x2x1);
+			temp[0][0] = cos(x2x1);
+			temp[2][2] = cos(x2x1);
+			temp[0][2] = sin(x2x1);
 		}
 	}
+	else if (currMode == VIEW_TRANSLATE)
+	{
+		if (mb1)
+			lookFrom[0] -= x2x1;
+		else if (mb2)
+			lookFrom[1] -= x2x1;
+		else if (mb3)
+			lookFrom[2] -= x2x1;
+			
+		//lookFrom.normalize();
+		set_view();
+		std::cout << "Viewing Matrix: " << std::endl;
+		print (m_V);
+	}
+	else if (currMode == VIEW_ROTATE)
+	{
+		double anglePieces = get_width() / (2.0 * M_PI);
+		x2x1 /= anglePieces;
+		if (mb1)
+		{
+			temp[1][2] = -1 * sin(x2x1);
+			temp[1][1] = cos(x2x1);
+			temp[2][2] = cos(x2x1);
+			temp[2][1] = sin(x2x1);
+		}
+		else if (mb2)
+		{
+			temp[0][1] = -1 * sin(x2x1);
+			temp[0][0] = cos(x2x1);
+			temp[1][1] = cos(x2x1);
+			temp[1][0] = sin(x2x1);
+		}
+		else if (mb3)
+		{
+			temp[2][0] = -1 * sin(x2x1);
+			temp[0][0] = cos(x2x1);
+			temp[2][2] = cos(x2x1);
+			temp[0][2] = sin(x2x1);
+		}
+		//lookAt = temp * lookAt;
+		//lookAt.normalize();
+		
+		//temp = temp.invert();
+		//temp = temp.transpose();
+		up = temp * up;
+		
+		up.normalize();
+		set_view();
+		
+		for (int i = 0;i<4;i++)
+		{
+			for (int j = 0;j<4;j++)
+			{
+				if (i == j)
+					temp[i][j] = 1;
+				else
+					temp[i][j] = 0;
+			}
+		}		
+	}
+	else if (VIEW_PERSPECTIVE)
+	{
+		if (mb1)
+			angle += x2x1;
+		else if (mb2)
+			n += x2x1;
+		else if (mb3)
+			f += x2x1;
+			
+		update_labels();
+	}
 	m_M = m_M * temp;
+	
+//	std::cout<<"modelling matrix: " << std::endl;
+	//print (m_M);
 	x2x1 /= 10;
 	
 	// Store the position of the cursor
@@ -516,4 +531,71 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 void Viewer::set_mode(Mode newMode)
 {
 	currMode = newMode;
+	std::string str;
+	switch (newMode)
+	{
+		case MODEL_ROTATE:
+			str = " Rotate Model";
+			break;
+		case MODEL_TRANSLATE:
+			str = " Translate Model";
+			break;
+		case MODEL_SCALE:
+			str = " Scale Model";
+			break;
+		case VIEW_TRANSLATE:
+			str = " Translate View";
+			break;        
+		case VIEW_ROTATE:  
+			str = " Rotate View";
+			break;         
+		case VIEW_PERSPECTIVE:
+			str = " Change View Perspective";
+			break;
+		case VIEWPORT:
+			str = "Change Viewport";
+			break;
+	}
+	currentModeLabel->set_text("Current Mode:\t" + str);
+}
+
+
+void Viewer::set_labels(Gtk::Label *currentModel, Gtk::Label *nearFar)
+{
+	currentModeLabel = currentModel;
+	nearFarLabel = nearFar;
+	
+	update_labels();
+}
+
+void Viewer::update_labels()
+{
+	// String streams used to print score and lines cleared	
+	std::stringstream ss, ss2;
+	
+	// Update the score
+	ss << n;
+	ss2 << f;
+	nearFarLabel->set_text("Near Plane:\t" + ss.str() + "\tFar Plane:\t" + ss2.str());
+}
+void Viewer::set_view()
+{
+	Vector3D vX, vY, vZ;
+	vZ = lookAt - lookFrom;
+	vZ.normalize();
+	
+	vX = up.cross(vZ);
+	vX.normalize();
+	
+	vY = vZ.cross(vX);
+	vY.normalize();
+	
+	for (int i = 0;i<3;i++)
+	{
+		m_V[i][0] = vX[i];
+		m_V[i][1] = vY[i];
+		m_V[i][2] = vZ[i];
+		m_V[i][3] = lookFrom[i];
+		m_V[3][i] = 0;
+	}
 }
