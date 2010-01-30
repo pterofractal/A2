@@ -10,12 +10,14 @@ AppWindow::AppWindow()
   using Gtk::Menu_Helpers::RadioMenuElem;
   
 	sigc::slot1<void, Viewer::Mode> mode_slot = sigc::mem_fun(m_viewer, &Viewer::set_mode);
+	sigc::slot0<void> reset_slot = sigc::mem_fun(m_viewer, &Viewer::reset_view);
 
   // Set up the application menu
   // The slot we use here just causes AppWindow::hide() on this,
   // which shuts down the application.
-  m_menu_app.items().push_back(MenuElem("_Quit", Gtk::AccelKey("q"),
-    sigc::mem_fun(*this, &AppWindow::hide)));
+	m_menu_app.items().push_back(MenuElem("_Quit", Gtk::AccelKey("q"),
+		sigc::mem_fun(*this, &AppWindow::hide)));
+	m_menu_app.items().push_back(MenuElem("_Reset", Gtk::AccelKey("w"),	reset_slot ) );
   
 
 // Set up the Mode Menu

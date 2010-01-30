@@ -64,8 +64,9 @@ Viewer::Viewer()
              Gdk::BUTTON_RELEASE_MASK    |
              Gdk::VISIBILITY_NOTIFY_MASK);
   
-  pointsOfCube = new Point3D[8];
-  	for (int i = 0;i<8;i++)
+	currMode = VIEW_ROTATE;
+	pointsOfCube = new Point3D[8];
+ 	for (int i = 0;i<8;i++)
 	{
 		if (i%2 == 1)
 			pointsOfCube[i][0] = -1;
@@ -84,7 +85,7 @@ Viewer::Viewer()
 		if (i>3)
 			pointsOfCube[i][2] = -1;
 	}
-	
+
 	tempPoints = new Point3D[8];
 	for (int i = 0;i<8;i++)
 	{
@@ -92,10 +93,11 @@ Viewer::Viewer()
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
+	
 	n = DEFAULT_NEAR;
 	f = DEFAULT_FAR;
 	angle = DEFAULT_FOV;
-	
+
 	// Initialize Modelling Matrix
 	for (int i = 0;i<4;i++)
 	{
@@ -107,16 +109,7 @@ Viewer::Viewer()
 				m_M[i][j] = 0;
 		}
 	}
-	
-	// Initialize Modelling Transformation
-	for (int i = 0;i<4;i++)
-	{
-		for (int j = 0;j<4;j++)
-		{
-			m_T[i][j] = 0;
-		}
-	}
-	
+
 	lookFrom[0] = 0;
 	lookFrom[1] = 0;
 	lookFrom[2] = 0;
@@ -128,6 +121,9 @@ Viewer::Viewer()
 	lookAt[0] = 0;
 	lookAt[1] = 0;
 	lookAt[2] = 1;
+	
+	set_view();
+	
 }
 
 Viewer::~Viewer()
@@ -173,7 +169,45 @@ void Viewer::set_perspective(double fov, double aspect,
 
 void Viewer::reset_view()
 {
-  // Fill me in!
+	n = DEFAULT_NEAR;
+	f = DEFAULT_FAR;
+	angle = DEFAULT_FOV;
+
+	// Initialize Modelling Matrix
+	for (int i = 0;i<4;i++)
+	{
+		for (int j = 0;j<4;j++)
+		{
+			if (i == j)
+				m_M[i][j] = 1;
+			else
+				m_M[i][j] = 0;
+		}
+	}
+
+	// Initialize Modelling Transformation
+	for (int i = 0;i<4;i++)
+	{
+		for (int j = 0;j<4;j++)
+		{
+			m_T[i][j] = 0;
+		}
+	}
+
+	lookFrom[0] = 0;
+	lookFrom[1] = 0;
+	lookFrom[2] = 0;
+		
+	up[0] = 0;
+	up[1] = 1;
+	up[2] = 0;
+	
+	lookAt[0] = 0;
+	lookAt[1] = 0;
+	lookAt[2] = 1;
+	
+	set_view();
+	invalidate();
 }
 
 void Viewer::on_realize()
@@ -384,13 +418,16 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	}
 	
 	if (currMode == MODEL_TRANSLATE)
-	{
+	{		
+		int i = 0;
 		if (mb1)
-			temp[0][3] -= x2x1;
+			i = 0;
 		else if (mb2)
-			temp[1][3] -= x2x1;
+			i = 1;
 		else if (mb3)
-			temp[2][3] -= x2x1;
+			i = 2;
+			
+		temp[i][3] -= x2x1;
 	}
 	else if (currMode == MODEL_SCALE)
 	{
@@ -474,9 +511,17 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 		}
 		
 		// Update the up vector
-		up = temp * up;
+		lookAt = temp * lookAt;
+		lookAt.normalize();
 		
+		up = lookFrom.cross(lookAt);
 		up.normalize();
+		
+		std::cout << "Look At\t";
+		print(lookAt);
+		
+		std::cout << "Up\t";
+		print(up);
 		set_view();
 		
 		for (int i = 0;i<4;i++)
