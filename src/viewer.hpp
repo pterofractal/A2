@@ -75,6 +75,7 @@ private:
 	Matrix4x4 m_rotation;
 	Matrix4x4 m_ortho;
 	Matrix4x4 m_M, m_T, m_V;
+	Matrix4x4 identity;
 	
 	Vector3D lookAt, up; 
 	Vector3D lookFrom;

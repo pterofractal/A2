@@ -98,21 +98,9 @@ Viewer::Viewer()
 	f = DEFAULT_FAR;
 	angle = DEFAULT_FOV;
 
-	// Initialize Modelling Matrix
-	for (int i = 0;i<4;i++)
-	{
-		for (int j = 0;j<4;j++)
-		{
-			if (i == j)
-				m_M[i][j] = 1;
-			else
-				m_M[i][j] = 0;
-		}
-	}
-
 	lookFrom[0] = 0;
 	lookFrom[1] = 0;
-	lookFrom[2] = 0;
+	lookFrom[2] = 17;
 		
 	up[0] = 0;
 	up[1] = 1;
@@ -173,17 +161,7 @@ void Viewer::reset_view()
 	f = DEFAULT_FAR;
 	angle = DEFAULT_FOV;
 
-	// Initialize Modelling Matrix
-	for (int i = 0;i<4;i++)
-	{
-		for (int j = 0;j<4;j++)
-		{
-			if (i == j)
-				m_M[i][j] = 1;
-			else
-				m_M[i][j] = 0;
-		}
-	}
+	m_M = identity;
 
 	// Initialize Modelling Transformation
 	for (int i = 0;i<4;i++)
@@ -212,19 +190,23 @@ void Viewer::reset_view()
 
 void Viewer::on_realize()
 {
-  // Do some OpenGL setup.
-  // First, let the base class do whatever it needs to
-  Gtk::GL::DrawingArea::on_realize();
-  
-  Glib::RefPtr<Gdk::GL::Drawable> gldrawable = get_gl_drawable();
-  
-  if (!gldrawable)
-    return;
+	// Do some OpenGL setup.
+	// First, let the base class do whatever it needs to
+	Gtk::GL::DrawingArea::on_realize();
 
-  if (!gldrawable->gl_begin(get_gl_context()))
-    return;
+	Glib::RefPtr<Gdk::GL::Drawable> gldrawable = get_gl_drawable();
 
-  gldrawable->gl_end();
+	if (!gldrawable)
+	  return;
+
+	if (!gldrawable->gl_begin(get_gl_context()))
+	  return;
+
+/*	m_M[0][3] = get_width() / 2;
+	m_M[1][3] = get_height() / 2;
+	m_M[2][3] = 0;*/
+	
+	gldrawable->gl_end();
 }
 
 bool Viewer::on_expose_event(GdkEventExpose* event)
@@ -236,7 +218,25 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	
 	if (!gldrawable->gl_begin(get_gl_context()))
 		return false;
+		
+	m_T[0][0] = get_width() / 10;
+	m_T[1][1] = get_height() / 10;
+	m_T[2][2] = 1;//get_width()/4;
+	m_T[3][3] = 1;
+	m_T[0][3] = get_width() / 2;
+	m_T[1][3] = get_height() / 2;
+	m_T[2][3] = 1;
 
+	Vector3D axis[4];	
+	for (int i = 0;i<3;i++)
+	{
+		axis[i][0] = m_M[i][0] - m_M[i][3];
+		axis[i][1] = m_M[i][1] - m_M[i][3];
+		axis[i][2] = m_M[i][2] - m_M[i][3];
+	}
+	axis[3][0] = m_M[0][3];
+	axis[3][1] = m_M[1][3];
+	axis[3][2] = m_M[2][3];
 	double aspectRatio = get_width() / get_height();
 	for (int i = 0;i<8;i++)
 	{
@@ -249,16 +249,9 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	height = get_height();
 	// Here is where your drawing code should go.
 	draw_init(get_width(), get_height());
-	
+	print(m_M);
 	// Init projection matrix
 	set_perspective(angle, aspectRatio, n, f);	
-	m_T[0][0] = get_width() / 10;
-	m_T[1][1] = get_height() / 10;
-	m_T[2][2] = 1;//get_width()/4;
-	m_T[3][3] = 1;
-	m_T[0][3] = get_width() / 2;
-	m_T[1][3] = get_height() / 2;
-	m_T[2][3] = 1;
 	
 /*	std::cout << "Transform Matrix " << std::endl;
 	print(m_T);
@@ -278,7 +271,11 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 		tempPoints[i] = m_V * tempPoints[i];
 		tempPoints[i] = m_proj * tempPoints[i];		
 	}
-		
+		for (int i = 0;i<8;i++)
+		{
+			std::cout << "Point before scale" << i << ": ";
+			print(tempPoints[i]);
+		}
 	for (int i = 0;i<8;i++)
 	{
 		tempPoints[i][0] /= tempPoints[i][2];
@@ -290,11 +287,29 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 		tempPoints[i] = m_T * tempPoints[i];
 	}
 	
-	// for (int i = 0;i<8;i++)
-	// 	{
-	// 		std::cout << "Point " << i << ": ";
-	// 		print(tempPoints[i]);
-	// 	}
+/*	for (int i = 0;i<4;i++)
+	{	
+		axis[i] = m_M * axis[i];
+		axis[i] = m_V * axis[i];
+		axis[i] = m_proj * axis[i];		
+	}
+		
+	for (int i = 0;i<4;i++)
+	{
+		axis[i].normalize();
+		axis[i] = m_T * axis[i];
+	}
+	
+	set_colour(Colour(0, 1, 0));
+	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[0][0], axis[0][1]));
+	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[1][0], axis[1][1]));
+	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[2][0], axis[2][1]));*/
+	
+	for (int i = 0;i<8;i++)
+	{
+		std::cout << "Point " << i << ": ";
+		print(tempPoints[i]);
+	}
 	set_colour(Colour(0.1, 0.1, 0.1));
 
 	/*
@@ -398,24 +413,12 @@ bool Viewer::on_button_release_event(GdkEventButton* event)
 
 bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 {
+	Matrix4x4 temp;
 	// Change in x
 	double x2x1 = event->x - startPos[0];
 	
 	// Scale it down a bit
 	x2x1 /= 10;
-	
-	// Temp matrix used to store different kinds of transformations
-	Matrix4x4 temp;
-	for (int i = 0;i<4;i++)
-	{
-		for (int j=0;j<4;j++)
-		{
-			if (i == j)
-				temp[i][j] = 1;
-			else
-				temp[i][j] = 0;
-		}
-	}
 	
 	if (currMode == MODEL_TRANSLATE)
 	{		
@@ -439,12 +442,15 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 		else if (x2x1 < 0)
 			x2x1 = -1.0 / x2x1;
 		
+		int i = 0;
 		if (mb1)
-			temp[0][0] *= x2x1;
+			i = 0;
 		else if (mb2)
-			temp[1][1] *= x2x1;
+			i = 1;
 		else if (mb3)
-			temp[2][2] *= x2x1;
+			i = 2;
+		
+		m_M[i][i] *= x2x1;
 	}
 	else if (currMode == MODEL_ROTATE)
 	{
@@ -494,6 +500,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			temp[1][1] = cos(x2x1);
 			temp[2][2] = cos(x2x1);
 			temp[2][1] = sin(x2x1);
+			lookAt[0] += x2x1;
 		}
 		else if (mb2)
 		{
@@ -501,6 +508,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			temp[0][0] = cos(x2x1);
 			temp[1][1] = cos(x2x1);
 			temp[1][0] = sin(x2x1);
+			lookAt[1] += x2x1;
 		}
 		else if (mb3)
 		{
@@ -508,32 +516,11 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			temp[0][0] = cos(x2x1);
 			temp[2][2] = cos(x2x1);
 			temp[0][2] = sin(x2x1);
+			lookAt[2] += x2x1;
 		}
-		
-		// Update the up vector
-		lookAt = temp * lookAt;
-		lookAt.normalize();
-		
-		up = lookFrom.cross(lookAt);
-		up.normalize();
-		
-		std::cout << "Look At\t";
-		print(lookAt);
-		
-		std::cout << "Up\t";
-		print(up);
-		set_view();
-		
-		for (int i = 0;i<4;i++)
-		{
-			for (int j = 0;j<4;j++)
-			{
-				if (i == j)
-					temp[i][j] = 1;
-				else
-					temp[i][j] = 0;
-			}
-		}		
+
+		m_V = temp.invert() * m_V;
+		temp = identity;
 	}
 	else if (VIEW_PERSPECTIVE)
 	{
