@@ -89,7 +89,6 @@ Viewer::Viewer()
 	tempPoints = new Point3D[8];
 	for (int i = 0;i<8;i++)
 	{
-		//pointsOfCube[i][3] = 0.0;
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
@@ -174,7 +173,7 @@ void Viewer::reset_view()
 
 	lookFrom[0] = 0;
 	lookFrom[1] = 0;
-	lookFrom[2] = 0;
+	lookFrom[2] = 17;
 		
 	up[0] = 0;
 	up[1] = 1;
@@ -185,6 +184,20 @@ void Viewer::reset_view()
 	lookAt[2] = 1;
 	
 	set_view();
+	
+	// Reset values for walls
+	walls[0][0] = 0.95 * get_width();
+	walls[0][1] = 0.5 * get_height();
+	
+	walls[1][0] = 0.05 * get_width();
+	walls[1][1] = 0.5 * get_height();
+	
+	walls[2][0] = 0.5 * get_width();
+	walls[2][1] = 0.95 * get_height();
+	
+	walls[3][0] = 0.5 * get_width();
+	walls[3][1] = 0.05 * get_height();
+	
 	invalidate();
 }
 
@@ -201,10 +214,20 @@ void Viewer::on_realize()
 
 	if (!gldrawable->gl_begin(get_gl_context()))
 	  return;
-
-/*	m_M[0][3] = get_width() / 2;
-	m_M[1][3] = get_height() / 2;
-	m_M[2][3] = 0;*/
+	
+	// Specify default position of walls
+	walls = new Point2D[4];
+	walls[0][0] = 0.95 * get_width();
+	walls[0][1] = 0.5 * get_height();
+	
+	walls[1][0] = 0.05 * get_width();
+	walls[1][1] = 0.5 * get_height();
+	
+	walls[2][0] = 0.5 * get_width();
+	walls[2][1] = 0.95 * get_height();
+	
+	walls[3][0] = 0.5 * get_width();
+	walls[3][1] = 0.05 * get_height();
 	
 	gldrawable->gl_end();
 }
@@ -218,13 +241,18 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	
 	if (!gldrawable->gl_begin(get_gl_context()))
 		return false;
-		
-	m_T[0][0] = get_width() / 10;
-	m_T[1][1] = get_height() / 10;
-	m_T[2][2] = 1;//get_width()/4;
+	
+	double width = get_width();
+	double height = get_height();	
+	double aspectRatio = width / height;
+	double preProjZ[8];
+	
+	m_T[0][0] = width / 2;
+	m_T[1][1] = height / 2;
+	m_T[2][2] = 1;
 	m_T[3][3] = 1;
-	m_T[0][3] = get_width() / 2;
-	m_T[1][3] = get_height() / 2;
+	m_T[0][3] = width / 2;
+	m_T[1][3] = height / 2;
 	m_T[2][3] = 1;
 
 	Vector3D axis[4];	
@@ -237,125 +265,130 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	axis[3][0] = m_M[0][3];
 	axis[3][1] = m_M[1][3];
 	axis[3][2] = m_M[2][3];
-	double aspectRatio = get_width() / get_height();
+	
 	for (int i = 0;i<8;i++)
 	{
 		for (int j = 0; j<3;j++)
 			tempPoints[i][j] = pointsOfCube[i][j];
 	}
 	
-	double width, height;
-	width = get_width();
-	height = get_height();
 	// Here is where your drawing code should go.
-	draw_init(get_width(), get_height());
-	print(m_M);
+	draw_init(width, height);
+	
 	// Init projection matrix
 	set_perspective(angle, aspectRatio, n, f);	
-	
-/*	std::cout << "Transform Matrix " << std::endl;
-	print(m_T);
-	
-	std::cout << "Modelling Matrix " << std::endl;
-	print(m_M);
-	
-	std::cout << "Viewing Matrix " << std::endl;
-	print(m_V);
-	
-	std::cout << "Projection Matrix " << std::endl;
-	print(m_proj);*/
 	
 	for (int i = 0;i<8;i++)
 	{	
 		tempPoints[i] = m_M * tempPoints[i];
+
 		tempPoints[i] = m_V * tempPoints[i];
+
+		preProjZ[i] = tempPoints[i][2];
+		
 		tempPoints[i] = m_proj * tempPoints[i];		
 	}
-		for (int i = 0;i<8;i++)
-		{
-			std::cout << "Point before scale" << i << ": ";
-			print(tempPoints[i]);
-		}
+	
 	for (int i = 0;i<8;i++)
 	{
-		tempPoints[i][0] /= tempPoints[i][2];
-		tempPoints[i][1] /= tempPoints[i][2];
-		tempPoints[i][2] /= tempPoints[i][2];
-		tempPoints[i][0] *= n;
-		tempPoints[i][1] *= n;
-		tempPoints[i][2] *= n;
-		tempPoints[i] = m_T * tempPoints[i];
-	}
-	
-/*	for (int i = 0;i<4;i++)
-	{	
-		axis[i] = m_M * axis[i];
-		axis[i] = m_V * axis[i];
-		axis[i] = m_proj * axis[i];		
-	}
+
+/*		tempPoints[i][2] = (tempPoints[i][2] * f) + (tempPoints[i][2] * n) - 2 * tempPoints[i][2] * n;
+		tempPoints[i][2] /= tempPoints[i][2] * (f - n);*/
+				
 		
-	for (int i = 0;i<4;i++)
-	{
-		axis[i].normalize();
-		axis[i] = m_T * axis[i];
-	}
-	
-	set_colour(Colour(0, 1, 0));
-	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[0][0], axis[0][1]));
-	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[1][0], axis[1][1]));
-	draw_line(Point2D(axis[3][0], axis[3][1]), Point2D(axis[2][0], axis[2][1]));*/
-	
-	for (int i = 0;i<8;i++)
-	{
-		std::cout << "Point " << i << ": ";
+		tempPoints[i][0] /= preProjZ[i];
+		tempPoints[i][1] /= preProjZ[i];		
+		
+		// Scale each point
+		tempPoints[i] = m_T * tempPoints[i];
+		
 		print(tempPoints[i]);
 	}
-	set_colour(Colour(0.1, 0.1, 0.1));
+	
+	// Define sides of the viewport	
+	Line sides[12];
+	
+	sides[0].pt1 = Point2D(tempPoints[0][0], tempPoints[0][1]);
+	sides[0].pt2 = Point2D(tempPoints[1][0], tempPoints[1][1]);
 
-	/*
-	0	1	1	1
-	1	-1	1	1
-	2	1	-1	1
-	3	-1	-1	1
-	4	1	1	-1
-	5	-1	1	-1
-	6	1	-1	-1
-	7	-1	-1	-1
-	*/
-
-	draw_line(	Point2D(tempPoints[0][0], tempPoints[0][1]),
-				Point2D(tempPoints[1][0], tempPoints[1][1]));
+	sides[1].pt1 = Point2D(tempPoints[0][0], tempPoints[0][1]);
+	sides[1].pt2 = Point2D(tempPoints[2][0], tempPoints[2][1]);
 	
-	draw_line(	Point2D(tempPoints[0][0], tempPoints[0][1]),
-				Point2D(tempPoints[2][0], tempPoints[2][1]));
+	sides[2].pt1 = Point2D(tempPoints[1][0], tempPoints[1][1]);
+	sides[2].pt2 = Point2D(tempPoints[3][0], tempPoints[3][1]);
 	
-	draw_line(	Point2D(tempPoints[1][0], tempPoints[1][1]),
-				Point2D(tempPoints[3][0], tempPoints[3][1]));
+	sides[3].pt1 = Point2D(tempPoints[2][0], tempPoints[2][1]);
+	sides[3].pt2 = Point2D(tempPoints[3][0], tempPoints[3][1]);
 	
-	draw_line(	Point2D(tempPoints[2][0], tempPoints[2][1]),
-				Point2D(tempPoints[3][0], tempPoints[3][1]));
+	sides[4].pt1 = Point2D(tempPoints[4][0], tempPoints[4][1]);
+	sides[4].pt2 = Point2D(tempPoints[5][0], tempPoints[5][1]);
 	
-	set_colour(Colour(1, 0, 0));
-
-	draw_line(	Point2D(tempPoints[4][0], tempPoints[4][1]),
-				Point2D(tempPoints[5][0], tempPoints[5][1]));
+	sides[5].pt1 = Point2D(tempPoints[4][0], tempPoints[4][1]);
+	sides[5].pt2 = Point2D(tempPoints[6][0], tempPoints[6][1]);
 	
-	draw_line(	Point2D(tempPoints[4][0], tempPoints[4][1]),
-				Point2D(tempPoints[6][0], tempPoints[6][1]));
+	sides[6].pt1 = Point2D(tempPoints[5][0], tempPoints[5][1]);
+	sides[6].pt2 = Point2D(tempPoints[7][0], tempPoints[7][1]);
 	
-	draw_line(	Point2D(tempPoints[5][0], tempPoints[5][1]),
-				Point2D(tempPoints[7][0], tempPoints[7][1]));
+	sides[7].pt1 = Point2D(tempPoints[6][0], tempPoints[6][1]);
+	sides[7].pt2 = Point2D(tempPoints[7][0], tempPoints[7][1]);
 	
-	draw_line(	Point2D(tempPoints[6][0], tempPoints[6][1]),
-				Point2D(tempPoints[7][0], tempPoints[7][1]));
+	sides[0].z1 = tempPoints[0][2];
+	sides[1].z1 = tempPoints[0][2];
+	sides[2].z1 = tempPoints[1][2];
+	sides[3].z1 = tempPoints[2][2];
+	sides[4].z1 = tempPoints[4][2];
+	sides[5].z1 = tempPoints[4][2];
+	sides[6].z1 = tempPoints[5][2];
+	sides[7].z1 = tempPoints[6][2];
 	
-	set_colour(Colour(0.1, 0.1, 1));
+	sides[0].z2 = tempPoints[1][2];
+	sides[1].z2 = tempPoints[2][2];
+	sides[2].z2 = tempPoints[3][2];
+	sides[3].z2 = tempPoints[3][2];
+	sides[4].z2 = tempPoints[5][2];
+	sides[5].z2 = tempPoints[6][2];
+	sides[6].z2 = tempPoints[7][2];
+	sides[7].z2 = tempPoints[7][2];
 	
 	for (int i = 0; i < 4;i++)
 	{
-		draw_line(	Point2D(tempPoints[i][0], tempPoints[i][1]),
-					Point2D(tempPoints[i+4][0], tempPoints[i+4][1]));
+		sides[i+8].pt1 = Point2D(tempPoints[i][0], tempPoints[i][1]);
+		sides[i+8].pt2 = Point2D(tempPoints[i+4][0], tempPoints[i+4][1]);
+		
+		sides[i+8].z1 = tempPoints[i][2];
+		sides[i+8].z2 = tempPoints[i+4][2];
 	}
+	
+	for (int i = 0;i<12;i++)
+		sides[i].draw = true;
+	
+	// Clip points to the viewport
+	clip_sides(sides);
+	
+	set_colour(Colour(0.1, 0.1, 0.1));
+
+	// Draw the cube
+	for (int i = 0;i<4;i++)
+	{
+		set_colour(Colour(0.1, 0.1, 0.1));
+		if (sides[i].draw)
+			draw_line (sides[i].pt1, sides[i].pt2);
+		
+		set_colour(Colour(1, 0, 0));
+		if (sides[i+4].draw)
+			draw_line (sides[i+4].pt1, sides[i+4].pt2);
+		
+		set_colour(Colour(0.1, 0.1, 1));
+		if (sides[i+8].draw)
+			draw_line (sides[i+8].pt1, sides[i+8].pt2);
+	}
+	
+	// Draw viewport
+	set_colour(Colour(0, 0.5, 1));
+	draw_line(	Point2D(0.05 * width, 0.05 * height), Point2D(0.05 * width, 0.95 * height) );
+	draw_line(	Point2D(0.05 * width, 0.05 * height), Point2D(0.95 * width, 0.05 * height) );
+	draw_line(	Point2D(0.95 * width, 0.05 * height), Point2D(0.95 * width, 0.95 * height) );
+	draw_line(	Point2D(0.05 * width, 0.95 * height), Point2D(0.95 * width, 0.95 * height) );
 	
 	draw_complete();
 			
@@ -601,6 +634,7 @@ void Viewer::update_labels()
 	ss2 << f;
 	nearFarLabel->set_text("Near Plane:\t" + ss.str() + "\tFar Plane:\t" + ss2.str());
 }
+
 void Viewer::set_view()
 {
 	Vector3D vX, vY, vZ;
@@ -620,5 +654,88 @@ void Viewer::set_view()
 		m_V[i][2] = vZ[i];
 		m_V[i][3] = lookFrom[i];
 		m_V[3][i] = 0;
+	}
+}
+
+void Viewer::clip_sides(Line *sides)
+{	
+	for (int i = 0; i < 12; i++)
+	{
+		for (int j = 0;j<4;j++)
+		{
+			double wecA, wecB;
+			// If we are dealing with the right and left walls determine difference in X
+			if (j < 2)
+			{
+				wecA = ((sides[i].pt1)[0] - walls[j][0]);
+				wecB = ((sides[i].pt2)[0] - walls[j][0]);	
+			}
+			// If we are dealing with the top and botom walls determine difference in X
+			else
+			{
+				wecA = ((sides[i].pt1)[1] - walls[j][1]);
+				wecB = ((sides[i].pt2)[1] - walls[j][1]);
+			}
+			
+			// If we are the right or top wall multiply by -1 to represent the normal
+			if (j%2 == 0)
+			{
+				wecA *= -1;
+				wecB *= -1;
+			}
+
+			if (wecA < 0 && wecB < 0)
+			{
+				sides[i].draw = false;
+				break;
+			}
+
+			if (wecA >= 0 && wecB >= 0)
+				continue;
+
+			double t = wecA / (wecA - wecB);
+			if (wecA < 0)
+			{
+				(sides[i].pt1)[0] = (sides[i].pt1)[0] + t * ((sides[i].pt2)[0] - (sides[i].pt1)[0]);
+				(sides[i].pt1)[1] = (sides[i].pt1)[1] + t * ((sides[i].pt2)[1] - (sides[i].pt1)[1]);
+			}
+			else
+			{
+				(sides[i].pt2)[0] = (sides[i].pt1)[0] + t * ((sides[i].pt2)[0] - (sides[i].pt1)[0]);
+				(sides[i].pt2)[1] = (sides[i].pt1)[1] + t * ((sides[i].pt2)[1] - (sides[i].pt1)[1]);
+			}
+		}
+	}
+	
+	
+	for (int i = 0; i<12;i++)
+	{
+		for (int j = 0;j<2;j++)
+		{
+			double pointOnPlane = n;
+			
+			if (j == 1)
+				pointOnPlane = f;
+				
+			double wecA = (sides[i].z1 - pointOnPlane);
+			double wecB = (sides[i].z2 - pointOnPlane);
+			
+	/*		if (j == 1)
+			{
+				wecA *= -1;
+				wecB *= -1;
+			}*/
+
+			if (wecA < 0 && wecB < 0)
+			{
+				sides[i].draw = false;
+				std::cout << "z1: " << sides[i].z1 << "\t z2: " << sides[i].z2 << "\n";
+			}
+
+
+			if (wecA >= 0 && wecB >= 0)
+				continue;
+			
+		}
 	}
 }

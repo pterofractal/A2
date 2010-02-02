@@ -86,17 +86,25 @@ private:
 	Point2D startPos;
 	Point3D *pointsOfCube;
 	Point3D *tempPoints;
-  	
+	Point2D *walls;
+	
 	Gtk::Label *nearFarLabel;
 	Gtk::Label *currentModeLabel;
-  double angle;
-  double n, f;
+	double angle;
+	double n, f;
 
-Mode currMode;
+	struct Line {
+		Point2D pt1, pt2;
+		double z1, z2;
+		bool draw;
+	};
+
+	Mode currMode;
   
-  void print (Matrix4x4 mat);
-  void print (Point3D pt);
-  void print (Vector3D vec);
+	void clip_sides(Line *sides);
+	void print (Matrix4x4 mat);
+	void print (Point3D pt);
+	void print (Vector3D vec);
 };
 
 #endif

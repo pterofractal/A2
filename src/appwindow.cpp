@@ -17,7 +17,7 @@ AppWindow::AppWindow()
   // which shuts down the application.
 	m_menu_app.items().push_back(MenuElem("_Quit", Gtk::AccelKey("q"),
 		sigc::mem_fun(*this, &AppWindow::hide)));
-	m_menu_app.items().push_back(MenuElem("_Reset", Gtk::AccelKey("w"),	reset_slot ) );
+	m_menu_app.items().push_back(MenuElem("_Reset", Gtk::AccelKey("a"),	reset_slot ) );
   
 
 // Set up the Mode Menu
