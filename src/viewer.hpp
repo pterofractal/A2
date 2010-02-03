@@ -72,8 +72,6 @@ private:
   // *** Fill me in ***
   // You will want to declare some more matrices here
 	Matrix4x4 m_proj;
-	Matrix4x4 m_rotation;
-	Matrix4x4 m_ortho;
 	Matrix4x4 m_M, m_T, m_V;
 	Matrix4x4 identity;
 	

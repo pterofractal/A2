@@ -36,6 +36,7 @@ void Viewer::print (Vector3D vec)
 	}
 	std::cout << std::endl;
 }
+
 Viewer::Viewer()
 {
   Glib::RefPtr<Gdk::GL::Config> glconfig;
@@ -115,7 +116,9 @@ Viewer::Viewer()
 
 Viewer::~Viewer()
 {
-  // Nothing to do here right now.
+	delete(pointsOfCube);
+	delete(tempPoints);
+	delete(walls);
 }
 
 void Viewer::invalidate()
@@ -125,11 +128,9 @@ void Viewer::invalidate()
   get_window()->invalidate_rect( allocation, false);
 }
 
-void Viewer::set_perspective(double fov, double aspect,
-                             double near, double far)
+void Viewer::set_perspective(double fov, double aspect, double near, double far)
 {
-  // Fill me in!
-	//std::cout << "FOV: " << fov << ",\tnear: " << near << ",\tfar: " << far << std::endl; 
+	// Construct the projection matrix
 	m_proj[0][0] = 1/(tan(fov / 2));
 	m_proj[0][0] /= aspect;
 	
@@ -140,9 +141,6 @@ void Viewer::set_perspective(double fov, double aspect,
 	}
 	
 	m_proj[1][1] = 1/(tan(fov/2));
-	//m_proj[2][2] = (near + far ) / near;
-	//m_proj[2][3] = -1 * far;
-	//m_proj[3][2] = 1 / near;
 	m_proj[2][2] = (far + near) / (far - near);
 	m_proj[2][3] = (-2 * far * near)/(far-near);
 	m_proj[3][2] = 1;
@@ -170,7 +168,8 @@ void Viewer::reset_view()
 			m_T[i][j] = 0;
 		}
 	}
-
+	
+	// Reset position of camera
 	lookFrom[0] = 0;
 	lookFrom[1] = 0;
 	lookFrom[2] = 17;
@@ -183,6 +182,7 @@ void Viewer::reset_view()
 	lookAt[1] = 0;
 	lookAt[2] = 1;
 	
+	// Reinitialize the viewing matrix
 	set_view();
 	
 	// Reset values for walls
@@ -245,8 +245,11 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	double width = get_width();
 	double height = get_height();	
 	double aspectRatio = width / height;
+	
+	// Array of doubles used to store z-values BEFORE projection
 	double preProjZ[8];
 	
+	// Final Scaling matrix
 	m_T[0][0] = width / 2;
 	m_T[1][1] = height / 2;
 	m_T[2][2] = 1;
@@ -254,18 +257,8 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	m_T[0][3] = width / 2;
 	m_T[1][3] = height / 2;
 	m_T[2][3] = 1;
-
-	Vector3D axis[4];	
-	for (int i = 0;i<3;i++)
-	{
-		axis[i][0] = m_M[i][0] - m_M[i][3];
-		axis[i][1] = m_M[i][1] - m_M[i][3];
-		axis[i][2] = m_M[i][2] - m_M[i][3];
-	}
-	axis[3][0] = m_M[0][3];
-	axis[3][1] = m_M[1][3];
-	axis[3][2] = m_M[2][3];
 	
+	// Store the points of the cube into a temp array
 	for (int i = 0;i<8;i++)
 	{
 		for (int j = 0; j<3;j++)
@@ -278,34 +271,29 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	// Init projection matrix
 	set_perspective(angle, aspectRatio, n, f);	
 	
+	// Apply each transformation to the temp points
 	for (int i = 0;i<8;i++)
 	{	
 		tempPoints[i] = m_M * tempPoints[i];
-
 		tempPoints[i] = m_V * tempPoints[i];
-
+		
+		// Store the z values
 		preProjZ[i] = tempPoints[i][2];
 		
 		tempPoints[i] = m_proj * tempPoints[i];		
 	}
 	
 	for (int i = 0;i<8;i++)
-	{
-
-/*		tempPoints[i][2] = (tempPoints[i][2] * f) + (tempPoints[i][2] * n) - 2 * tempPoints[i][2] * n;
-		tempPoints[i][2] /= tempPoints[i][2] * (f - n);*/
-				
-		
+	{	
+		// Normalize the x and y coordinates	
 		tempPoints[i][0] /= preProjZ[i];
 		tempPoints[i][1] /= preProjZ[i];		
 		
 		// Scale each point
 		tempPoints[i] = m_T * tempPoints[i];
-		
-		print(tempPoints[i]);
 	}
 	
-	// Define sides of the viewport	
+	// Define sides of the cube	
 	Line sides[12];
 	
 	sides[0].pt1 = Point2D(tempPoints[0][0], tempPoints[0][1]);
@@ -332,6 +320,7 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 	sides[7].pt1 = Point2D(tempPoints[6][0], tempPoints[6][1]);
 	sides[7].pt2 = Point2D(tempPoints[7][0], tempPoints[7][1]);
 	
+	// Store the z values into each side
 	sides[0].z1 = tempPoints[0][2];
 	sides[1].z1 = tempPoints[0][2];
 	sides[2].z1 = tempPoints[1][2];
@@ -358,26 +347,28 @@ bool Viewer::on_expose_event(GdkEventExpose* event)
 		sides[i+8].z1 = tempPoints[i][2];
 		sides[i+8].z2 = tempPoints[i+4][2];
 	}
-	
+
+	// Assume each side can be drawn
 	for (int i = 0;i<12;i++)
 		sides[i].draw = true;
 	
 	// Clip points to the viewport
 	clip_sides(sides);
 	
-	set_colour(Colour(0.1, 0.1, 0.1));
-
 	// Draw the cube
 	for (int i = 0;i<4;i++)
 	{
+		// Back face
 		set_colour(Colour(0.1, 0.1, 0.1));
 		if (sides[i].draw)
 			draw_line (sides[i].pt1, sides[i].pt2);
 		
+		// Front face
 		set_colour(Colour(1, 0, 0));
 		if (sides[i+4].draw)
 			draw_line (sides[i+4].pt1, sides[i+4].pt2);
 		
+		// Side faces
 		set_colour(Colour(0.1, 0.1, 1));
 		if (sides[i+8].draw)
 			draw_line (sides[i+8].pt1, sides[i+8].pt2);
@@ -467,7 +458,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	}
 	else if (currMode == MODEL_SCALE)
 	{
-		x2x1 *= 10;
+		x2x1 *= 5;
 		if (x2x1 >= 0 && x2x1 < 1)
 			x2x1 = 1.1;
 		else if (x2x1 <= 0 && x2x1 > -1)
@@ -489,6 +480,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	{
 		double anglePieces = get_width() / (2.0 * M_PI);
 		x2x1 /= anglePieces;
+		// Construct appropriate rotation matrix
 		if (mb1)
 		{
 			temp[1][2] = -1 * sin(x2x1);
@@ -527,6 +519,7 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 	{
 		double anglePieces = get_width() / (2.0 * M_PI);
 		x2x1 /= anglePieces;
+		// Construct appropriate rotation matrix
 		if (mb1)
 		{
 			temp[1][2] = -1 * sin(x2x1);
@@ -552,7 +545,10 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 			lookAt[2] += x2x1;
 		}
 
+		// Apply transformation
 		m_V = temp.invert() * m_V;
+		
+		// Set temp matrix back to identity
 		temp = identity;
 	}
 	else if (VIEW_PERSPECTIVE)
@@ -564,22 +560,24 @@ bool Viewer::on_motion_notify_event(GdkEventMotion* event)
 		else if (mb3)
 			f += x2x1;
 		
+		// Make sure the field of view angle is in [5, 160]
 		if (angle < 5)
 			angle = 5;
 		else if (angle > 160)
 			angle = 160;
 		
+		// Update on screen labels
 		update_labels();
 	}
-	m_M = m_M * temp;
 	
-//	std::cout<<"modelling matrix: " << std::endl;
-	//print (m_M);
-	x2x1 /= 10;
+	// Apply the modelling matrix transformation
+	m_M = m_M * temp;
 	
 	// Store the position of the cursor
 	startPos[0] = event->x;
 	startPos[1] = event->y;
+	
+	// Force render
 	invalidate();
 	return true;
 }
@@ -637,6 +635,7 @@ void Viewer::update_labels()
 
 void Viewer::set_view()
 {
+	// Create view matrix based on lookAt, lookFrom and up
 	Vector3D vX, vY, vZ;
 	vZ = lookAt - lookFrom;
 	vZ.normalize();
@@ -707,7 +706,7 @@ void Viewer::clip_sides(Line *sides)
 		}
 	}
 	
-	
+	// Near and far plane clipping
 	for (int i = 0; i<12;i++)
 	{
 		for (int j = 0;j<2;j++)
@@ -720,21 +719,24 @@ void Viewer::clip_sides(Line *sides)
 			double wecA = (sides[i].z1 - pointOnPlane);
 			double wecB = (sides[i].z2 - pointOnPlane);
 			
-	/*		if (j == 1)
-			{
-				wecA *= -1;
-				wecB *= -1;
-			}*/
-
 			if (wecA < 0 && wecB < 0)
-			{
 				sides[i].draw = false;
-				std::cout << "z1: " << sides[i].z1 << "\t z2: " << sides[i].z2 << "\n";
-			}
 
 
 			if (wecA >= 0 && wecB >= 0)
 				continue;
+			
+			double t = wecA / (wecA - wecB);
+			if (wecA < 0)
+			{
+				(sides[i].pt1)[0] = (sides[i].pt1)[0] + t * ((sides[i].pt2)[0] - (sides[i].pt1)[0]);
+				(sides[i].pt1)[1] = (sides[i].pt1)[1] + t * ((sides[i].pt2)[1] - (sides[i].pt1)[1]);
+			}
+			else
+			{
+				(sides[i].pt2)[0] = (sides[i].pt1)[0] + t * ((sides[i].pt2)[0] - (sides[i].pt1)[0]);
+				(sides[i].pt2)[1] = (sides[i].pt1)[1] + t * ((sides[i].pt2)[1] - (sides[i].pt1)[1]);
+			}
 			
 		}
 	}
