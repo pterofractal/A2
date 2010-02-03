@@ -1,0 +1,991 @@
+sum is: /usr/bin/sum
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 1
+
+
+A2:
+total 616
+ 7371743 -rwxr-x--x 1 ksivaran ksivaranjan 561839 2010-02-02 22:05 a2*
+ 4233306 drwxrwx--- 5 ksivaran cs488         4096 2010-02-02 22:05 ./
+10591325 drwxrwx--- 8 ksivaran cs488         4096 2010-02-02 22:05 ../
+ 4233307 drwxrwx--- 2 ksivaran cs488         4096 2010-02-02 22:04 src/
+ 1562127 drwxrwx--x 8 ksivaran ksivaranjan   4096 2010-02-02 22:04 .git/
+ 7371742 -rw-r----- 1 ksivaran ksivaranjan  28976 2010-02-02 22:03 Screen shot 2010-02-02 at 9.57.13 PM.png
+ 7371741 -rw-r----- 1 ksivaran ksivaranjan   2017 2010-02-02 22:03 README
+ 7371740 -rw-r----- 1 ksivaran ksivaranjan   1803 2010-02-02 22:03 Manual.rtf
+ 4233320 drwxrwx--- 2 ksivaran cs488         4096 2010-01-05 16:27 data/
+
+A2/src:
+total 1452
+4233306 drwxrwx--- 5 ksivaran cs488         4096 2010-02-02 22:05 ../
+2621743 -rwxr-x--x 1 ksivaran ksivaranjan 561839 2010-02-02 22:04 a2*
+4233307 drwxrwx--- 2 ksivaran cs488         4096 2010-02-02 22:04 ./
+2621742 -rw-r----- 1 ksivaran ksivaranjan 179932 2010-02-02 22:04 viewer.o
+2621741 -rw-r----- 1 ksivaran ksivaranjan  83884 2010-02-02 22:04 main.o
+2621740 -rw-r----- 1 ksivaran ksivaranjan  42036 2010-02-02 22:04 draw.o
+2621739 -rw-r----- 1 ksivaran ksivaranjan 280940 2010-02-02 22:04 appwindow.o
+2621738 -rw-r----- 1 ksivaran ksivaranjan  50484 2010-02-02 22:04 algebra.o
+2621736 -rw-r----- 1 ksivaran ksivaranjan  41948 2010-02-02 22:04 a2.o
+2621737 -rw-r----- 1 ksivaran ksivaranjan    673 2010-02-02 22:04 Makefile
+2621735 -rw-r----- 1 ksivaran ksivaranjan   5393 2010-02-02 22:04 a2.d
+2621734 -rw-r----- 1 ksivaran ksivaranjan   5401 2010-02-02 22:04 algebra.d
+2621733 -rw-r----- 1 ksivaran ksivaranjan  30966 2010-02-02 22:04 appwindow.d
+2621730 -rw-r----- 1 ksivaran ksivaranjan   5496 2010-02-02 22:04 draw.d
+2621729 -rw-r----- 1 ksivaran ksivaranjan  30951 2010-02-02 22:04 main.d
+2621728 -rw-r----- 1 ksivaran ksivaranjan  30974 2010-02-02 22:04 viewer.d
+4233314 -rw-r----- 1 ksivaran ksivaranjan   2635 2010-02-02 22:03 viewer.hpp
+4233309 -rw-r----- 1 ksivaran ksivaranjan  15790 2010-02-02 22:03 viewer.cpp
+4233313 -rw-r----- 1 ksivaran ksivaranjan    325 2010-02-02 22:03 main.cpp
+4233312 -rw-r----- 1 ksivaran ksivaranjan   1028 2010-02-02 22:03 draw.hpp
+4233319 -rw-r----- 1 ksivaran ksivaranjan   1486 2010-02-02 22:03 draw.cpp
+4233318 -rw-r----- 1 ksivaran ksivaranjan    560 2010-02-02 22:03 appwindow.hpp
+4233308 -rw-r----- 1 ksivaran ksivaranjan   2753 2010-02-02 22:03 appwindow.cpp
+4233311 -rw-r----- 1 ksivaran ksivaranjan   9474 2010-02-02 22:03 algebra.hpp
+4233316 -rw-r----- 1 ksivaran ksivaranjan   3308 2010-02-02 22:03 algebra.cpp
+4233315 -rw-r----- 1 ksivaran ksivaranjan    596 2010-02-02 22:03 a2.hpp
+4233310 -rw-r----- 1 ksivaran ksivaranjan    610 2010-02-02 22:03 a2.cpp
+
+A2/.git:
+total 48
+ 4233306 drwxrwx---  5 ksivaran cs488       4096 2010-02-02 22:05 ../
+27745758 -rw-r-----  1 ksivaran ksivaranjan   41 2010-02-02 22:04 ORIG_HEAD
+ 1562127 drwxrwx--x  8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ./
+29832446 -rw-r-----  1 ksivaran ksivaranjan   92 2010-02-02 22:04 FETCH_HEAD
+27745757 -rw-r-----  1 ksivaran ksivaranjan 1319 2010-02-02 22:03 index
+24509309 drwxrwx--x  3 ksivaran ksivaranjan 4096 2010-02-02 22:03 logs/
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 objects/
+29832443 -rw-r-----  1 ksivaran ksivaranjan  197 2010-02-02 22:03 config
+29832433 -rw-r-----  1 ksivaran ksivaranjan   23 2010-02-02 22:02 HEAD
+29832432 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 branches/
+ 1562140 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 hooks/
+ 1562138 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 info/
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 2
+
+
+ 1562131 -rw-r-----  1 ksivaran ksivaranjan   58 2010-02-02 22:02 description
+ 1562128 drwxrwx--x  4 ksivaran ksivaranjan 4096 2010-02-02 22:02 refs/
+
+A2/.git/logs:
+total 16
+ 1562127 drwxrwx--x 8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+31350695 -rw-r----- 1 ksivaran ksivaranjan  166 2010-02-02 22:03 HEAD
+24509309 drwxrwx--x 3 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+31350692 drwxrwx--x 3 ksivaran ksivaranjan 4096 2010-02-02 22:03 refs/
+
+A2/.git/logs/refs:
+total 12
+24509309 drwxrwx--x 3 ksivaran ksivaranjan 4096 2010-02-02 22:03 ../
+31350693 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:03 heads/
+31350692 drwxrwx--x 3 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+
+A2/.git/logs/refs/heads:
+total 12
+31350694 -rw-r----- 1 ksivaran ksivaranjan  166 2010-02-02 22:03 master
+31350693 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+31350692 drwxrwx--x 3 ksivaran ksivaranjan 4096 2010-02-02 22:03 ../
+
+A2/.git/objects:
+total 272
+ 1562127 drwxrwx--x  8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ./
+26119737 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 0c/
+25687723 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 61/
+ 2080090 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 14/
+25687720 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 64/
+25687717 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 43/
+25687715 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ae/
+25687713 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 5e/
+ 8898734 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 62/
+25687710 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 7a/
+20582065 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 23/
+25687705 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 4d/
+20582073 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 97/
+ 2080076 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 b6/
+ 2080072 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 16/
+29832452 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 30/
+13197426 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 8a/
+13197424 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 01/
+ 8898744 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 60/
+13197421 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 90/
+13197419 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 96/
+13197417 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 10/
+13197415 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 03/
+   62257 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 0d/
+  925043 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 4f/
+13197411 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 17/
+13197409 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 af/
+ 8898736 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 dc/
+  925039 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 22/
+33474875 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 fe/
+33474867 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 1c/
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 3
+
+
+ 8898749 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 71/
+   62263 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 3d/
+ 8898746 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 51/
+ 8898742 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 df/
+ 8898740 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 9e/
+ 8898738 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 2b/
+ 8898732 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 f6/
+ 8898730 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 1f/
+   62261 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 34/
+   62259 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 3c/
+   62255 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 1d/
+   62253 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 35/
+   62251 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 c6/
+23445491 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 c8/
+23445489 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 18/
+23445478 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 91/
+23445476 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 98/
+23445474 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 f1/
+23445472 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 d2/
+20582077 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 42/
+20582075 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 b4/
+20582071 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 47/
+20582069 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 f9/
+20582067 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 d5/
+20582061 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 49/
+20582059 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 fd/
+  925049 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 b9/
+  925047 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 99/
+  925045 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 7e/
+  925041 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 81/
+  925037 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 27/
+29832450 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 09/
+29832448 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 00/
+29832445 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 info/
+29832444 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 pack/
+
+A2/.git/objects/0c:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+26119737 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687724 -r--r--r--  1 ksivaran ksivaranjan  876 2010-02-02 22:03 aca0e709106c3baa03a9abc0e94d5153e2465d
+
+A2/.git/objects/61:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687723 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687722 -r--r--r--  1 ksivaran ksivaranjan 1322 2010-02-02 22:03 4e1983fbf495723e4fe2b11dae2ea683febaad
+
+A2/.git/objects/14:
+total 52
+29832434 drwxrwx--x 67 ksivaran ksivaranjan  8192 2010-02-02 22:03 ../
+ 2080090 drwxrwx--x  2 ksivaran ksivaranjan  4096 2010-02-02 22:03 ./
+25687721 -r--r--r--  1 ksivaran ksivaranjan 25725 2010-02-02 22:03 6a0fdc5178141c4b57e1f03f673cfa61fa48ab
+25687718 -r--r--r--  1 ksivaran ksivaranjan  1152 2010-02-02 22:03 a642c368d54507c002272933d6a504689ac386
+25687708 -r--r--r--  1 ksivaran ksivaranjan   968 2010-02-02 22:03 3dd59829e5177f478d011dfede56c7d68e5fbc
+ 2080089 -r--r--r--  1 ksivaran ksivaranjan   365 2010-02-02 22:03 326f38ae2d0dd819e4c1a032905d9847232ecc
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 4
+
+
+
+A2/.git/objects/64:
+total 36
+29832434 drwxrwx--x 67 ksivaran ksivaranjan  8192 2010-02-02 22:03 ../
+25687720 drwxrwx--x  2 ksivaran ksivaranjan  4096 2010-02-02 22:03 ./
+25687719 -r--r--r--  1 ksivaran ksivaranjan 22409 2010-02-02 22:03 04468192ad6f7ab86d1fcfeede283bcfc5a050
+
+A2/.git/objects/43:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687717 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687716 -r--r--r--  1 ksivaran ksivaranjan 1147 2010-02-02 22:03 0a9065572c597b4aa28a0479fed84432cb9a47
+
+A2/.git/objects/ae:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687715 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687714 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 f031a4b63e7261a215c4cb2bda91a7a324f469
+
+A2/.git/objects/5e:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687713 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687712 -r--r--r--  1 ksivaran ksivaranjan 2340 2010-02-02 22:03 4237ae567405e1a5c181ef30c5ec1314cc7620
+
+A2/.git/objects/62:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898734 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687711 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 e693222c6d7d7d70ef5b06ffc4a5dcff85c3a7
+ 8898733 -r--r--r--  1 ksivaran ksivaranjan  366 2010-02-02 22:03 d41166d17c082020c35ca04a185af1f732d8c8
+
+A2/.git/objects/7a:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687710 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687709 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 2aef418f33ed32e68dafa27591cb2eb135f547
+
+A2/.git/objects/23:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582065 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687707 -r--r--r--  1 ksivaran ksivaranjan 2425 2010-02-02 22:03 9264773eb52c358ce6cba9cd3ebc6e9c9e5f0d
+20582062 -r--r--r--  1 ksivaran ksivaranjan  930 2010-02-02 22:03 1be454d72e8b9bc6607c2cdcb77efb89a3df12
+
+A2/.git/objects/4d:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+25687705 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+25687704 -r--r--r--  1 ksivaran ksivaranjan  291 2010-02-02 22:03 240e1d94b43578ee6168f22cda4284bdbe0cdf
+
+A2/.git/objects/97:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582073 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 2080091 -r--r--r--  1 ksivaran ksivaranjan  576 2010-02-02 22:03 f7127becd3d4109c3125d089214f49efa2c154
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 5
+
+
+20582072 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 849d657341690d2436cb4897f62010fc125901
+
+A2/.git/objects/b6:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 2080076 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 2080073 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 4e20547d4ef7c651edf9c5aa176be4a6461ac5
+
+A2/.git/objects/16:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 2080072 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197428 -r--r--r--  1 ksivaran ksivaranjan 1078 2010-02-02 22:03 36b7c20598e54d64e1b487e1a986047542a824
+
+A2/.git/objects/30:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+29832452 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197427 -r--r--r--  1 ksivaran ksivaranjan 2654 2010-02-02 22:03 c2eec3bd9e1581a75fb033a887ef94fd61d631
+29832451 -r--r--r--  1 ksivaran ksivaranjan  200 2010-02-02 22:03 6ca9dc9c410c7906b218fc6be3dcb55962e5cc
+
+A2/.git/objects/8a:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197426 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197425 -r--r--r--  1 ksivaran ksivaranjan  374 2010-02-02 22:03 a8f1c2b85714e94bd2f9c40f95adb1327039d3
+
+A2/.git/objects/01:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197424 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197423 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 dd3feeb04e904f807abf6b1d0f7b95ee34b206
+
+A2/.git/objects/60:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898744 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197422 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 dde36a42d54fce612b370466f9e449d581895f
+ 8898743 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 30dd77df8099b81c75c8df180100ee37dab360
+
+A2/.git/objects/90:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197421 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197420 -r--r--r--  1 ksivaran ksivaranjan 1112 2010-02-02 22:03 a0b1830bbf3ef1eb32f1d81c99f169cac0c692
+
+A2/.git/objects/96:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197419 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197418 -r--r--r--  1 ksivaran ksivaranjan 3479 2010-02-02 22:03 718d3f1d92b73634018db6f1f6a9f497850aa1
+
+A2/.git/objects/10:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197417 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 6
+
+
+13197416 -r--r--r--  1 ksivaran ksivaranjan  319 2010-02-02 22:03 c40d2a8f293c5bde6521887409e29a4041b336
+
+A2/.git/objects/03:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197415 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197414 -r--r--r--  1 ksivaran ksivaranjan  839 2010-02-02 22:03 c4f043f01bddbca07b03a735ff73e160889602
+
+A2/.git/objects/0d:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62257 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197413 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 4fffa01a53434422f5d51f5b80ff941cfaa0b1
+   62256 -r--r--r--  1 ksivaran ksivaranjan 1237 2010-02-02 22:03 533a875ad664e053780cfe90eb4298c7f102fb
+
+A2/.git/objects/4f:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925043 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197412 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 1e0022976fee1ae0c30d67a4b21b1bd5a06290
+  925042 -r--r--r--  1 ksivaran ksivaranjan  186 2010-02-02 22:03 8ba534f6eea84173fae59543c4051d47cb720e
+
+A2/.git/objects/17:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197411 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197410 -r--r--r--  1 ksivaran ksivaranjan 3872 2010-02-02 22:03 f8e2be8f90a24b9e5d2d9c529e9a9bf769d06f
+
+A2/.git/objects/af:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+13197409 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+13197408 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 a557ca785ddce1e7557bd0115948a4e749236b
+
+A2/.git/objects/dc:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898736 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+33474881 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 9368f2dcbf5d73e408f90daddd4bc38593720c
+ 8898735 -r--r--r--  1 ksivaran ksivaranjan 1006 2010-02-02 22:03 54d53766a400c4ff34830bcf6c6f919dedf540
+
+A2/.git/objects/22:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925039 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+33474879 -r--r--r--  1 ksivaran ksivaranjan 3722 2010-02-02 22:03 b56c3c494cec41115d78772b8f7fa2004c7710
+  925038 -r--r--r--  1 ksivaran ksivaranjan  182 2010-02-02 22:03 dc5aed185c991be826e2ef87f3a7aeb65901db
+
+A2/.git/objects/fe:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+33474875 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+33474873 -r--r--r--  1 ksivaran ksivaranjan  968 2010-02-02 22:03 56d911458b04f863f342c7a1ca49b560dfec2e
+
+A2/.git/objects/1c:
+total 16
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 7
+
+
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+33474867 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 3651786 -r--r--r--  1 ksivaran ksivaranjan  364 2010-02-02 22:03 5b2e8d76e64dfccff88d526d19c60aa55ef22b
+
+A2/.git/objects/71:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898749 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898748 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 8c0b012f2cd47dc2af45c207a8c9db0166200a
+
+A2/.git/objects/3d:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62263 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898747 -r--r--r--  1 ksivaran ksivaranjan 1175 2010-02-02 22:03 9a9608450b05b3cb0f021e41c64d900dee65a7
+   62262 -r--r--r--  1 ksivaran ksivaranjan  365 2010-02-02 22:03 d70bd11f4ad362c2f0a075e15ac32fb7557450
+
+A2/.git/objects/51:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898746 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898745 -r--r--r--  1 ksivaran ksivaranjan 3834 2010-02-02 22:03 0e513db1147f2fa68ec8f13e219eddc02acfee
+
+A2/.git/objects/df:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898742 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898741 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 f410d0446c4a1481e5cddbe7d3093fd32f3f3b
+
+A2/.git/objects/9e:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898740 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898739 -r--r--r--  1 ksivaran ksivaranjan 1184 2010-02-02 22:03 b75c63b436a399fcb9f91c97aa97e106cf8d26
+
+A2/.git/objects/2b:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898738 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898737 -r--r--r--  1 ksivaran ksivaranjan 3884 2010-02-02 22:03 a602dcc5b56e636881429c78a518cb643eac0e
+
+A2/.git/objects/f6:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898732 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+ 8898731 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 10962f96638bc409e4f5dace57afe163d4bd85
+
+A2/.git/objects/1f:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+ 8898730 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62264 -r--r--r--  1 ksivaran ksivaranjan 4691 2010-02-02 22:03 74bde8349b6f87767310de27e26d3ffee27330
+
+A2/.git/objects/34:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 8
+
+
+   62261 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62260 -r--r--r--  1 ksivaran ksivaranjan   45 2010-02-02 22:03 5f04586e62a3b683f2f4c53804550944a4ca73
+
+A2/.git/objects/3c:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62259 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62258 -r--r--r--  1 ksivaran ksivaranjan 1226 2010-02-02 22:03 bc0ab96ca47ba42b0d682a853942d1caa60a5e
+
+A2/.git/objects/1d:
+total 20
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62255 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62254 -r--r--r--  1 ksivaran ksivaranjan 4773 2010-02-02 22:03 36101c24ba69ee882585c88c77c2600bd5c5d2
+
+A2/.git/objects/35:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62253 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62252 -r--r--r--  1 ksivaran ksivaranjan  214 2010-02-02 22:03 68e432cf2c7632333a7ca2ffa4c6c7375b1270
+
+A2/.git/objects/c6:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+   62251 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+   62250 -r--r--r--  1 ksivaran ksivaranjan  520 2010-02-02 22:03 867cf8ea2740d6ae2a45b518142b60c035187c
+
+A2/.git/objects/c8:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445491 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+23445490 -r--r--r--  1 ksivaran ksivaranjan  736 2010-02-02 22:03 6e2ba52a3d6c2d7196dc762245fe53ccc706cf
+
+A2/.git/objects/18:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445489 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+23445488 -r--r--r--  1 ksivaran ksivaranjan  351 2010-02-02 22:03 56efcb0470a1ac4d76d9bb339c4f1a7707dfc3
+
+A2/.git/objects/91:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445478 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+23445477 -r--r--r--  1 ksivaran ksivaranjan 1006 2010-02-02 22:03 dd51b1b9190521f7f22a184f1ffd879bbca44c
+
+A2/.git/objects/98:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445476 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+23445475 -r--r--r--  1 ksivaran ksivaranjan 2326 2010-02-02 22:03 48adfdd0bdd527414a885d7cc5cd92225e643b
+
+A2/.git/objects/f1:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445474 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+23445473 -r--r--r--  1 ksivaran ksivaranjan 1355 2010-02-02 22:03 9d5d56069ae7448bdb4e21320c21e50517d1c0
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs  Page 9
+
+
+
+A2/.git/objects/d2:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+23445472 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582078 -r--r--r--  1 ksivaran ksivaranjan  341 2010-02-02 22:03 dbe9b31c8586d0ea9ce05a3dc588a0eb4ceecc
+
+A2/.git/objects/42:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582077 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582076 -r--r--r--  1 ksivaran ksivaranjan  304 2010-02-02 22:03 f58b9c19c3fe70f3e4c18649a2d3d1a42d65e0
+
+A2/.git/objects/b4:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582075 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582074 -r--r--r--  1 ksivaran ksivaranjan  384 2010-02-02 22:03 3bab2e4c86409f5d9cbad59f4c7aa0b218549b
+
+A2/.git/objects/47:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582071 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582070 -r--r--r--  1 ksivaran ksivaranjan  466 2010-02-02 22:03 ef2ea95a32b6147984f8cb6b117f57819d6e7e
+
+A2/.git/objects/f9:
+total 40
+29832434 drwxrwx--x 67 ksivaran ksivaranjan  8192 2010-02-02 22:03 ../
+20582069 drwxrwx--x  2 ksivaran ksivaranjan  4096 2010-02-02 22:03 ./
+20582068 -r--r--r--  1 ksivaran ksivaranjan 28193 2010-02-02 22:03 c11a3793f1acc328f5861c3cb7a875a3e1c2a5
+
+A2/.git/objects/d5:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582067 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582066 -r--r--r--  1 ksivaran ksivaranjan  935 2010-02-02 22:03 b88df19a1ee11ca18f28b6ba2094fa84c47385
+
+A2/.git/objects/49:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582061 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582060 -r--r--r--  1 ksivaran ksivaranjan  179 2010-02-02 22:03 cf598858f46ec0bf39b0cf04204e6c1f254409
+
+A2/.git/objects/fd:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+20582059 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+20582058 -r--r--r--  1 ksivaran ksivaranjan  133 2010-02-02 22:03 0afda22ace0f80bced3f62cf5dcc8c4601d73e
+
+A2/.git/objects/b9:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925049 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+  925048 -r--r--r--  1 ksivaran ksivaranjan  202 2010-02-02 22:03 d75bf512685d566d8a46642d58922aa404e77d
+
+A2/.git/objects/99:
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 10
+
+
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925047 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+  925046 -r--r--r--  1 ksivaran ksivaranjan  192 2010-02-02 22:03 c57dac99908e97b4eb102b12b6e3d658481a54
+
+A2/.git/objects/7e:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925045 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+  925044 -r--r--r--  1 ksivaran ksivaranjan  223 2010-02-02 22:03 b4e8002e2b4baba8623013917e6176c67ce201
+
+A2/.git/objects/81:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925041 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+  925040 -r--r--r--  1 ksivaran ksivaranjan  258 2010-02-02 22:03 c6043bdbbeb8ce40d48334b99cb4eed3ff6504
+
+A2/.git/objects/27:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+  925037 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+  925036 -r--r--r--  1 ksivaran ksivaranjan  165 2010-02-02 22:03 38234ce3e176e3e52c3a6f20250220e239444c
+
+A2/.git/objects/09:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+29832450 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+29832449 -r--r--r--  1 ksivaran ksivaranjan  217 2010-02-02 22:03 2dd381d0fd9b24e7965ae1c5dbddf33f3a8fbf
+
+A2/.git/objects/00:
+total 16
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+29832448 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+29832447 -r--r--r--  1 ksivaran ksivaranjan  190 2010-02-02 22:03 fa32a9a28300123ce24eb17855766e3ab629f8
+
+A2/.git/objects/info:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+29832445 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+
+A2/.git/objects/pack:
+total 12
+29832434 drwxrwx--x 67 ksivaran ksivaranjan 8192 2010-02-02 22:03 ../
+29832444 drwxrwx--x  2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+
+A2/.git/branches:
+total 8
+ 1562127 drwxrwx--x 8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+29832432 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+
+A2/.git/hooks:
+total 48
+1562127 drwxrwx--x 8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+9289345 -rw-r----- 1 ksivaran ksivaranjan  387 2010-02-02 22:02 pre-applypatch
+1562140 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+9289344 -rw-r----- 1 ksivaran ksivaranjan 2910 2010-02-02 22:02 update
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 11
+
+
+1562147 -rw-r----- 1 ksivaran ksivaranjan  780 2010-02-02 22:02 commit-msg
+1562146 -rw-r----- 1 ksivaran ksivaranjan 4262 2010-02-02 22:02 pre-rebase
+1562145 -rw-r----- 1 ksivaran ksivaranjan  152 2010-02-02 22:02 post-commit
+1562144 -rw-r----- 1 ksivaran ksivaranjan  207 2010-02-02 22:02 post-update
+1562143 -rw-r----- 1 ksivaran ksivaranjan  441 2010-02-02 22:02 applypatch-msg
+1562142 -rw-r----- 1 ksivaran ksivaranjan 1706 2010-02-02 22:02 pre-commit
+1562141 -rw-r----- 1 ksivaran ksivaranjan  510 2010-02-02 22:02 post-receive
+
+A2/.git/info:
+total 12
+1562127 drwxrwx--x 8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+1562139 -rw-r----- 1 ksivaran ksivaranjan  240 2010-02-02 22:02 exclude
+1562138 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+
+A2/.git/refs:
+total 16
+1562127 drwxrwx--x 8 ksivaran ksivaranjan 4096 2010-02-02 22:04 ../
+1562129 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:03 heads/
+1562128 drwxrwx--x 4 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+1562130 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:02 tags/
+
+A2/.git/refs/heads:
+total 8
+ 1562129 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:03 ./
+31185559 -rw-r----- 1 ksivaran ksivaranjan   41 2010-02-02 22:03 master
+ 1562128 drwxrwx--x 4 ksivaran ksivaranjan 4096 2010-02-02 22:02 ../
+
+A2/.git/refs/tags:
+total 8
+1562130 drwxrwx--x 2 ksivaran ksivaranjan 4096 2010-02-02 22:02 ./
+1562128 drwxrwx--x 4 ksivaran ksivaranjan 4096 2010-02-02 22:02 ../
+
+A2/data:
+total 8
+4233306 drwxrwx--- 5 ksivaran cs488 4096 2010-02-02 22:05 ../
+4233320 drwxrwx--- 2 ksivaran cs488 4096 2010-01-05 16:27 ./
+
+A2                                      
+A2/a2                                   19620   549
+A2/data                                 
+A2/.git                                 
+A2/.git/branches                        
+A2/.git/config                          58819     1
+A2/.git/description                     38698     1
+A2/.git/FETCH_HEAD                      25032     1
+A2/.git/HEAD                            28576     1
+A2/.git/hooks                           
+A2/.git/hooks/applypatch-msg            26000     1
+A2/.git/hooks/commit-msg                40459     1
+A2/.git/hooks/post-commit               49737     1
+A2/.git/hooks/post-receive              33936     1
+A2/.git/hooks/post-update               31354     1
+A2/.git/hooks/pre-applypatch            60819     1
+A2/.git/hooks/pre-commit                10165     2
+A2/.git/hooks/pre-rebase                15010     5
+A2/.git/hooks/update                    10799     3
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 12
+
+
+A2/.git/index                           08152     2
+A2/.git/info                            
+A2/.git/info/exclude                    27206     1
+A2/.git/logs                            
+A2/.git/logs/HEAD                       26574     1
+A2/.git/logs/refs                       
+A2/.git/logs/refs/heads                 
+A2/.git/logs/refs/heads/master          26574     1
+A2/.git/objects                         
+A2/.git/objects/00                      
+A2/.git/objects/00/fa32a9a28300123ce24eb17855766e3ab629f836880     1
+A2/.git/objects/01                      
+A2/.git/objects/01/dd3feeb04e904f807abf6b1d0f7b95ee34b20615074     1
+A2/.git/objects/03                      
+A2/.git/objects/03/c4f043f01bddbca07b03a735ff73e16088960206229     1
+A2/.git/objects/09                      
+A2/.git/objects/09/2dd381d0fd9b24e7965ae1c5dbddf33f3a8fbf21077     1
+A2/.git/objects/0c                      
+A2/.git/objects/0c/aca0e709106c3baa03a9abc0e94d5153e2465d60200     1
+A2/.git/objects/0d                      
+A2/.git/objects/0d/4fffa01a53434422f5d51f5b80ff941cfaa0b110096     1
+A2/.git/objects/0d/533a875ad664e053780cfe90eb4298c7f102fb55089     2
+A2/.git/objects/10                      
+A2/.git/objects/10/c40d2a8f293c5bde6521887409e29a4041b33622610     1
+A2/.git/objects/14                      
+A2/.git/objects/14/326f38ae2d0dd819e4c1a032905d9847232ecc47792     1
+A2/.git/objects/14/3dd59829e5177f478d011dfede56c7d68e5fbc53717     1
+A2/.git/objects/14/6a0fdc5178141c4b57e1f03f673cfa61fa48ab64391    26
+A2/.git/objects/14/a642c368d54507c002272933d6a504689ac38626780     2
+A2/.git/objects/16                      
+A2/.git/objects/16/36b7c20598e54d64e1b487e1a986047542a82461977     2
+A2/.git/objects/17                      
+A2/.git/objects/17/f8e2be8f90a24b9e5d2d9c529e9a9bf769d06f15911     4
+A2/.git/objects/18                      
+A2/.git/objects/18/56efcb0470a1ac4d76d9bb339c4f1a7707dfc305322     1
+A2/.git/objects/1c                      
+A2/.git/objects/1c/5b2e8d76e64dfccff88d526d19c60aa55ef22b04970     1
+A2/.git/objects/1d                      
+A2/.git/objects/1d/36101c24ba69ee882585c88c77c2600bd5c5d214016     5
+A2/.git/objects/1f                      
+A2/.git/objects/1f/74bde8349b6f87767310de27e26d3ffee2733030081     5
+A2/.git/objects/22                      
+A2/.git/objects/22/b56c3c494cec41115d78772b8f7fa2004c771041714     4
+A2/.git/objects/22/dc5aed185c991be826e2ef87f3a7aeb65901db14555     1
+A2/.git/objects/23                      
+A2/.git/objects/23/1be454d72e8b9bc6607c2cdcb77efb89a3df1212456     1
+A2/.git/objects/23/9264773eb52c358ce6cba9cd3ebc6e9c9e5f0d62083     3
+A2/.git/objects/27                      
+A2/.git/objects/27/38234ce3e176e3e52c3a6f20250220e239444c59014     1
+A2/.git/objects/2b                      
+A2/.git/objects/2b/a602dcc5b56e636881429c78a518cb643eac0e41663     4
+A2/.git/objects/30                      
+A2/.git/objects/30/6ca9dc9c410c7906b218fc6be3dcb55962e5cc26011     1
+A2/.git/objects/30/c2eec3bd9e1581a75fb033a887ef94fd61d63106461     3
+A2/.git/objects/34                      
+A2/.git/objects/34/5f04586e62a3b683f2f4c53804550944a4ca7321740     1
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 13
+
+
+A2/.git/objects/35                      
+A2/.git/objects/35/68e432cf2c7632333a7ca2ffa4c6c7375b127009777     1
+A2/.git/objects/3c                      
+A2/.git/objects/3c/bc0ab96ca47ba42b0d682a853942d1caa60a5e06224     2
+A2/.git/objects/3d                      
+A2/.git/objects/3d/9a9608450b05b3cb0f021e41c64d900dee65a740482     2
+A2/.git/objects/3d/d70bd11f4ad362c2f0a075e15ac32fb755745015981     1
+A2/.git/objects/42                      
+A2/.git/objects/42/f58b9c19c3fe70f3e4c18649a2d3d1a42d65e042265     1
+A2/.git/objects/43                      
+A2/.git/objects/43/0a9065572c597b4aa28a0479fed84432cb9a4737129     2
+A2/.git/objects/47                      
+A2/.git/objects/47/ef2ea95a32b6147984f8cb6b117f57819d6e7e05221     1
+A2/.git/objects/49                      
+A2/.git/objects/49/cf598858f46ec0bf39b0cf04204e6c1f25440930423     1
+A2/.git/objects/4d                      
+A2/.git/objects/4d/240e1d94b43578ee6168f22cda4284bdbe0cdf53619     1
+A2/.git/objects/4f                      
+A2/.git/objects/4f/1e0022976fee1ae0c30d67a4b21b1bd5a0629040416     1
+A2/.git/objects/4f/8ba534f6eea84173fae59543c4051d47cb720e17099     1
+A2/.git/objects/51                      
+A2/.git/objects/51/0e513db1147f2fa68ec8f13e219eddc02acfee28393     4
+A2/.git/objects/5e                      
+A2/.git/objects/5e/4237ae567405e1a5c181ef30c5ec1314cc762032892     3
+A2/.git/objects/60                      
+A2/.git/objects/60/30dd77df8099b81c75c8df180100ee37dab36021116     1
+A2/.git/objects/60/dde36a42d54fce612b370466f9e449d581895f63362     1
+A2/.git/objects/61                      
+A2/.git/objects/61/4e1983fbf495723e4fe2b11dae2ea683febaad32922     2
+A2/.git/objects/62                      
+A2/.git/objects/62/d41166d17c082020c35ca04a185af1f732d8c831313     1
+A2/.git/objects/62/e693222c6d7d7d70ef5b06ffc4a5dcff85c3a752679     1
+A2/.git/objects/64                      
+A2/.git/objects/64/04468192ad6f7ab86d1fcfeede283bcfc5a05012247    22
+A2/.git/objects/71                      
+A2/.git/objects/71/8c0b012f2cd47dc2af45c207a8c9db0166200a15001     1
+A2/.git/objects/7a                      
+A2/.git/objects/7a/2aef418f33ed32e68dafa27591cb2eb135f54732062     1
+A2/.git/objects/7e                      
+A2/.git/objects/7e/b4e8002e2b4baba8623013917e6176c67ce20150189     1
+A2/.git/objects/81                      
+A2/.git/objects/81/c6043bdbbeb8ce40d48334b99cb4eed3ff650459764     1
+A2/.git/objects/8a                      
+A2/.git/objects/8a/a8f1c2b85714e94bd2f9c40f95adb1327039d349782     1
+A2/.git/objects/90                      
+A2/.git/objects/90/a0b1830bbf3ef1eb32f1d81c99f169cac0c69203811     2
+A2/.git/objects/91                      
+A2/.git/objects/91/dd51b1b9190521f7f22a184f1ffd879bbca44c20934     1
+A2/.git/objects/96                      
+A2/.git/objects/96/718d3f1d92b73634018db6f1f6a9f497850aa141504     4
+A2/.git/objects/97                      
+A2/.git/objects/97/849d657341690d2436cb4897f62010fc12590105681     1
+A2/.git/objects/97/f7127becd3d4109c3125d089214f49efa2c15448224     1
+A2/.git/objects/98                      
+A2/.git/objects/98/48adfdd0bdd527414a885d7cc5cd92225e643b49094     3
+A2/.git/objects/99                      
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 14
+
+
+A2/.git/objects/99/c57dac99908e97b4eb102b12b6e3d658481a5427049     1
+A2/.git/objects/9e                      
+A2/.git/objects/9e/b75c63b436a399fcb9f91c97aa97e106cf8d2605853     2
+A2/.git/objects/ae                      
+A2/.git/objects/ae/f031a4b63e7261a215c4cb2bda91a7a324f46919101     1
+A2/.git/objects/af                      
+A2/.git/objects/af/a557ca785ddce1e7557bd0115948a4e749236b63229     1
+A2/.git/objects/b4                      
+A2/.git/objects/b4/3bab2e4c86409f5d9cbad59f4c7aa0b218549b41259     1
+A2/.git/objects/b6                      
+A2/.git/objects/b6/4e20547d4ef7c651edf9c5aa176be4a6461ac509551     1
+A2/.git/objects/b9                      
+A2/.git/objects/b9/d75bf512685d566d8a46642d58922aa404e77d53770     1
+A2/.git/objects/c6                      
+A2/.git/objects/c6/867cf8ea2740d6ae2a45b518142b60c035187c49105     1
+A2/.git/objects/c8                      
+A2/.git/objects/c8/6e2ba52a3d6c2d7196dc762245fe53ccc706cf62792     1
+A2/.git/objects/d2                      
+A2/.git/objects/d2/dbe9b31c8586d0ea9ce05a3dc588a0eb4ceecc23433     1
+A2/.git/objects/d5                      
+A2/.git/objects/d5/b88df19a1ee11ca18f28b6ba2094fa84c4738560146     1
+A2/.git/objects/dc                      
+A2/.git/objects/dc/54d53766a400c4ff34830bcf6c6f919dedf54052762     1
+A2/.git/objects/dc/9368f2dcbf5d73e408f90daddd4bc38593720c00752     1
+A2/.git/objects/df                      
+A2/.git/objects/df/f410d0446c4a1481e5cddbe7d3093fd32f3f3b11813     1
+A2/.git/objects/f1                      
+A2/.git/objects/f1/9d5d56069ae7448bdb4e21320c21e50517d1c025739     2
+A2/.git/objects/f6                      
+A2/.git/objects/f6/10962f96638bc409e4f5dace57afe163d4bd8522852     1
+A2/.git/objects/f9                      
+A2/.git/objects/f9/c11a3793f1acc328f5861c3cb7a875a3e1c2a552056    28
+A2/.git/objects/fd                      
+A2/.git/objects/fd/0afda22ace0f80bced3f62cf5dcc8c4601d73e43313     1
+A2/.git/objects/fe                      
+A2/.git/objects/fe/56d911458b04f863f342c7a1ca49b560dfec2e29750     1
+A2/.git/objects/info                    
+A2/.git/objects/pack                    
+A2/.git/ORIG_HEAD                       51622     1
+A2/.git/refs                            
+A2/.git/refs/heads                      
+A2/.git/refs/heads/master               51622     1
+A2/.git/refs/tags                       
+A2/Manual.rtf                           10232     2
+A2/README                               53514     2
+A2/Screen shot 2010-02-02 at 9.57.13 PM.png60722    29
+A2/src                                  
+A2/src/a2                               19620   549
+A2/src/a2.cpp                           32833     1
+A2/src/a2.d                             22025     6
+A2/src/a2.hpp                           00679     1
+A2/src/a2.o                             55958    41
+A2/src/algebra.cpp                      00294     4
+A2/src/algebra.d                        08816     6
+A2/src/algebra.hpp                      65153    10
+A2/src/algebra.o                        21115    50
+
+
+
+
+
+
+
+2010-02-02 22:06 Checksum for A2 for ksivaran on gl05.student.cs Page 15
+
+
+A2/src/appwindow.cpp                    51211     3
+A2/src/appwindow.d                      20276    31
+A2/src/appwindow.hpp                    34333     1
+A2/src/appwindow.o                      53597   275
+A2/src/draw.cpp                         56818     2
+A2/src/draw.d                           53294     6
+A2/src/draw.hpp                         53140     2
+A2/src/draw.o                           07828    42
+A2/src/main.cpp                         50545     1
+A2/src/main.d                           23949    31
+A2/src/main.o                           28623    82
+A2/src/Makefile                         11584     1
+A2/src/viewer.cpp                       27016    16
+A2/src/viewer.d                         27085    31
+A2/src/viewer.hpp                       30100     3
+A2/src/viewer.o                         12904   176
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
